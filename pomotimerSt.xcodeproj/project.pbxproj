@@ -1,0 +1,368 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F19F99E326116E95004958BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F99E226116E95004958BD /* AppDelegate.swift */; };
+		F19F99E526116E95004958BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F99E426116E95004958BD /* ViewController.swift */; };
+		F19F99E826116E95004958BD /* pomotimerSt.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F19F99E626116E95004958BD /* pomotimerSt.xcdatamodeld */; };
+		F19F99EA26116E97004958BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F19F99E926116E97004958BD /* Assets.xcassets */; };
+		F19F99ED26116E97004958BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F19F99EB26116E97004958BD /* Main.storyboard */; };
+		F19F99F726116EF6004958BD /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F99F626116EF6004958BD /* StatusItemManager.swift */; };
+		F19F99FB26124009004958BD /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F99FA26124009004958BD /* SetupViewController.swift */; };
+		F19F99FF2612C626004958BD /* TimerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F99FE2612C626004958BD /* TimerObject.swift */; };
+		F19F9A022612C65E004958BD /* TimerQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F9A012612C65E004958BD /* TimerQueueManager.swift */; };
+		F19F9A052612C9D4004958BD /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F9A042612C9D4004958BD /* TimerViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F19F99DF26116E95004958BD /* pomotimerSt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pomotimerSt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F19F99E226116E95004958BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F19F99E426116E95004958BD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F19F99E726116E95004958BD /* pomotimerSt.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = pomotimerSt.xcdatamodel; sourceTree = "<group>"; };
+		F19F99E926116E97004958BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F19F99EC26116E97004958BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F19F99EE26116E97004958BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F19F99EF26116E97004958BD /* pomotimerSt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pomotimerSt.entitlements; sourceTree = "<group>"; };
+		F19F99F626116EF6004958BD /* StatusItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemManager.swift; sourceTree = "<group>"; };
+		F19F99FA26124009004958BD /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
+		F19F99FE2612C626004958BD /* TimerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerObject.swift; sourceTree = "<group>"; };
+		F19F9A012612C65E004958BD /* TimerQueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerQueueManager.swift; sourceTree = "<group>"; };
+		F19F9A042612C9D4004958BD /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F19F99DC26116E95004958BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F19F99D626116E95004958BD = {
+			isa = PBXGroup;
+			children = (
+				F19F99E126116E95004958BD /* pomotimerSt */,
+				F19F99E026116E95004958BD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F19F99E026116E95004958BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F19F99DF26116E95004958BD /* pomotimerSt.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F19F99E126116E95004958BD /* pomotimerSt */ = {
+			isa = PBXGroup;
+			children = (
+				F19F99E226116E95004958BD /* AppDelegate.swift */,
+				F19F99F626116EF6004958BD /* StatusItemManager.swift */,
+				F19F99E426116E95004958BD /* ViewController.swift */,
+				F19F99FA26124009004958BD /* SetupViewController.swift */,
+				F19F9A042612C9D4004958BD /* TimerViewController.swift */,
+				F19F99FE2612C626004958BD /* TimerObject.swift */,
+				F19F9A012612C65E004958BD /* TimerQueueManager.swift */,
+				F19F99E926116E97004958BD /* Assets.xcassets */,
+				F19F99EB26116E97004958BD /* Main.storyboard */,
+				F19F99EE26116E97004958BD /* Info.plist */,
+				F19F99EF26116E97004958BD /* pomotimerSt.entitlements */,
+				F19F99E626116E95004958BD /* pomotimerSt.xcdatamodeld */,
+			);
+			path = pomotimerSt;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F19F99DE26116E95004958BD /* pomotimerSt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F19F99F226116E97004958BD /* Build configuration list for PBXNativeTarget "pomotimerSt" */;
+			buildPhases = (
+				F19F99DB26116E95004958BD /* Sources */,
+				F19F99DC26116E95004958BD /* Frameworks */,
+				F19F99DD26116E95004958BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pomotimerSt;
+			productName = pomotimerSt;
+			productReference = F19F99DF26116E95004958BD /* pomotimerSt.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F19F99D726116E95004958BD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					F19F99DE26116E95004958BD = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = F19F99DA26116E95004958BD /* Build configuration list for PBXProject "pomotimerSt" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F19F99D626116E95004958BD;
+			productRefGroup = F19F99E026116E95004958BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F19F99DE26116E95004958BD /* pomotimerSt */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F19F99DD26116E95004958BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F19F99EA26116E97004958BD /* Assets.xcassets in Resources */,
+				F19F99ED26116E97004958BD /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F19F99DB26116E95004958BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F19F9A022612C65E004958BD /* TimerQueueManager.swift in Sources */,
+				F19F99F726116EF6004958BD /* StatusItemManager.swift in Sources */,
+				F19F99E526116E95004958BD /* ViewController.swift in Sources */,
+				F19F99E326116E95004958BD /* AppDelegate.swift in Sources */,
+				F19F9A052612C9D4004958BD /* TimerViewController.swift in Sources */,
+				F19F99E826116E95004958BD /* pomotimerSt.xcdatamodeld in Sources */,
+				F19F99FF2612C626004958BD /* TimerObject.swift in Sources */,
+				F19F99FB26124009004958BD /* SetupViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F19F99EB26116E97004958BD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F19F99EC26116E97004958BD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F19F99F026116E97004958BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F19F99F126116E97004958BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		F19F99F326116E97004958BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = pomotimerSt/pomotimerSt.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = pomotimerSt/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = edu.self.pomotimerSt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F19F99F426116E97004958BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = pomotimerSt/pomotimerSt.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = pomotimerSt/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = edu.self.pomotimerSt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F19F99DA26116E95004958BD /* Build configuration list for PBXProject "pomotimerSt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F19F99F026116E97004958BD /* Debug */,
+				F19F99F126116E97004958BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F19F99F226116E97004958BD /* Build configuration list for PBXNativeTarget "pomotimerSt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F19F99F326116E97004958BD /* Debug */,
+				F19F99F426116E97004958BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F19F99E626116E95004958BD /* pomotimerSt.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F19F99E726116E95004958BD /* pomotimerSt.xcdatamodel */,
+			);
+			currentVersion = F19F99E726116E95004958BD /* pomotimerSt.xcdatamodel */;
+			path = pomotimerSt.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F19F99D726116E95004958BD /* Project object */;
+}
