@@ -8,22 +8,28 @@
 import Foundation
 
 class TimerQueueManager{
-    private var numAdded = 0
-    private var futureTaskDictionary = Dictionary<String, TimerObject>()
+    var numAdded = 0
+    var futureTaskDictionary = Dictionary<String, TimerObject>()
     private var completedTaskDictionary = Dictionary<String, TimerObject>()
-    //returns string with all the names of the timers in the set
-    //"no timers created" if empty
+    
     func createNewTask(duration: String, title: String){
+        print("adding" + String(numAdded) + "item")
         let durationInt = Int(duration)!
-        let newTask = TimerObject(lengthSec: durationInt, title: title, orderNum: numAdded, active: false)
-        futureTaskDictionary[title] = newTask
+        futureTaskDictionary[title] = TimerObject(lengthSec: durationInt, title: title, orderNum: numAdded, active: false)
+        numAdded += 1
     }
     
+    //returns string with all the names of the timers in the Dictionary
+    //"no timers created" if empty
     func getCurrentTimers() -> String{
         var timers = ""
         for (_, task) in futureTaskDictionary {
-            timers = timers + "\n" + task.getTitle()
+            print("printing item")
+            timers += task.getTitle() + "       "
+            timers += String(task.getLengthSec()) + "\n"
         }
+        print(timers)
+        print("printed timers")
         if (timers == ""){
             return "No timers"
         }
@@ -44,7 +50,12 @@ class TimerQueueManager{
     func setToActive(activeTimer: TimerObject) -> TimerObject{
         return TimerObject(lengthSec: activeTimer.getLengthSec(), title: activeTimer.getTitle(), orderNum: 0, active: true)
     }
-    
+ 
+    // Recommended pattern for creating a singleton
+    // https://developer.apple.com/documentation/swift/cocoa_design_patterns/managing_a_shared_resource_using_a_singleton
+    static let sharedInstance = TimerQueueManager()
 
+    
 }
+
 

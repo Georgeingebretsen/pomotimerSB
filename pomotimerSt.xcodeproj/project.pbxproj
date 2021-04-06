@@ -65,14 +65,14 @@
 		F19F99E126116E95004958BD /* pomotimerSt */ = {
 			isa = PBXGroup;
 			children = (
-				F19F99E226116E95004958BD /* AppDelegate.swift */,
-				F19F99F626116EF6004958BD /* StatusItemManager.swift */,
 				F19F99E426116E95004958BD /* ViewController.swift */,
 				F19F99FA26124009004958BD /* SetupViewController.swift */,
 				F19F9A042612C9D4004958BD /* TimerViewController.swift */,
-				F19F99FE2612C626004958BD /* TimerObject.swift */,
 				F19F9A012612C65E004958BD /* TimerQueueManager.swift */,
+				F19F99FE2612C626004958BD /* TimerObject.swift */,
 				F19F99E926116E97004958BD /* Assets.xcassets */,
+				F19F99F626116EF6004958BD /* StatusItemManager.swift */,
+				F19F99E226116E95004958BD /* AppDelegate.swift */,
 				F19F99EB26116E97004958BD /* Main.storyboard */,
 				F19F99EE26116E97004958BD /* Info.plist */,
 				F19F99EF26116E97004958BD /* pomotimerSt.entitlements */,
