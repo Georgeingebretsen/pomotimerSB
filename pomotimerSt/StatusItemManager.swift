@@ -50,11 +50,25 @@ class StatusItemManager: NSObject {
         popover.contentViewController = vc
     }
     
+    func showQuotes() {
+        guard let popover = popover else { return }
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "QuotesPage")) as? QuotesViewController else { return }
+        popover.contentViewController = vc
+    }
+    
     //takes you to the timer setup page
     func showTimer() {
         guard let popover = popover else { return }
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "TimerPage")) as? TimerViewController else { return }
+        popover.contentViewController = vc
+    }
+    
+    func showDone() {
+        guard let popover = popover else { return }
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "DonePage")) as? DoneViewController else { return }
         popover.contentViewController = vc
     }
     

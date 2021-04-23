@@ -28,6 +28,9 @@ class TimerViewController: NSViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print("timerViewController")
+        if(QuoteManager.sharedInstance.amountQuotes != 0){
+            quoteText.stringValue = QuoteManager.sharedInstance.getRandomQuote()
+        }
         upcomingTimers.stringValue = SetupViewController().mainQueueClass.getCurrentTimers()
         timerName.stringValue = "current timer: " + queueManagerClass.findFirstTimer().getTitle()
         startFirstTimer()
@@ -40,6 +43,8 @@ class TimerViewController: NSViewController {
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
         //call the method that takes us back to the first page
         itemManager.backToSetupPage()
+        //resets all timers
+        queueManagerClass.reset()
     }
     
     //pause or resume button
@@ -64,14 +69,23 @@ class TimerViewController: NSViewController {
         //first timer in the dictionary
         let activeTimer = queueManagerClass.findFirstTimer()
         //creates a new instantiation with the same values except that its now set to "active"
-        let newActiveTimer = queueManagerClass.setToActive(activeTimer: queueManagerClass.findFirstTimer())
+        let newActiveTimer = queueManagerClass.setToActive(activeTimer: activeTimer)
         //how long the item lasts
         var seconds = newActiveTimer.getLengthSec()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ tempTimer in
-            seconds -= 1
-            self.timerText.stringValue = String(seconds)
+            if(!self.isPaused){
+                seconds -= 1
+            }
+            self.timerText.stringValue = "0:00:" + String(seconds)
             if(seconds == 0){
                 self.stopTimer()
+                if(self.queueManagerClass.completedTaskDictionary.count == self.queueManagerClass.numAdded){
+                    print("timers done")
+                    //access running instance of statusItemManager
+                    guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
+                    //call the method that takes us to the done page
+                    itemManager.showDone()
+                }
             }
         }
     }
@@ -80,6 +94,15 @@ class TimerViewController: NSViewController {
         timer?.invalidate()
         timer = nil
         self.timerText.stringValue = "0:00:00"
+        self.nextTimer()
+
+    }
+    
+    func nextTimer(){
+        queueManagerClass.removeFirstTimer()
+        startFirstTimer()
+        upcomingTimers.stringValue = SetupViewController().mainQueueClass.getCurrentTimers()
+        timerName.stringValue = "current timer: " + queueManagerClass.findFirstTimer().getTitle()
     }
     
     override var representedObject: Any? {

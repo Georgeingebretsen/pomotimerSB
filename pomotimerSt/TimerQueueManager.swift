@@ -10,10 +10,9 @@ import Foundation
 class TimerQueueManager{
     var numAdded = 0
     var futureTaskDictionary = Dictionary<String, TimerObject>()
-    private var completedTaskDictionary = Dictionary<String, TimerObject>()
+    var completedTaskDictionary = Dictionary<String, TimerObject>()
     
     func createNewTask(duration: String, title: String){
-        print("adding" + String(numAdded) + "item")
         let durationInt = Int(duration)!
         futureTaskDictionary[title] = TimerObject(lengthSec: durationInt, title: title, orderNum: numAdded, active: false)
         numAdded += 1
@@ -23,13 +22,20 @@ class TimerQueueManager{
     //"no timers created" if empty
     func getCurrentTimers() -> String{
         var timers = ""
-        for (_, task) in futureTaskDictionary {
-            print("printing item")
-            timers += task.getTitle() + "       "
-            timers += String(task.getLengthSec()) + "\n"
+        var timersAdded = 0
+        while(timersAdded < futureTaskDictionary.count){
+            for (_, task) in futureTaskDictionary {
+                if(task.getOrderNum() == timersAdded){
+                    if(task.getTitle() != findFirstTimer().getTitle()){
+                        timers += task.getTitle() + "       "
+                        timers += String(task.getLengthSec()) + "\n"
+                        timersAdded += 1;
+                    }else{
+                        timersAdded += 1;
+                    }
+                }
+            }
         }
-        print(timers)
-        print("printed timers")
         if (timers == ""){
             return "No timers"
         }
@@ -45,10 +51,29 @@ class TimerQueueManager{
         }
         return returnedTimer
     }
-
+    
+    func removeFirstTimer(){
+        var firstTask = ""
+        for (name, task) in futureTaskDictionary {
+            if (task.getOrderNum() == 0){
+                completedTaskDictionary [name] = task
+                firstTask = name
+            }
+        }
+        futureTaskDictionary[firstTask] = nil
+        for (name, task) in futureTaskDictionary {
+            futureTaskDictionary[name] = TimerObject(lengthSec: task.getLengthSec(), title: task.getTitle(), orderNum: task.getOrderNum()-1, active: false)
+        }
+    }
     
     func setToActive(activeTimer: TimerObject) -> TimerObject{
         return TimerObject(lengthSec: activeTimer.getLengthSec(), title: activeTimer.getTitle(), orderNum: 0, active: true)
+    }
+    
+    func reset(){
+        numAdded = 0
+        futureTaskDictionary.removeAll(keepingCapacity: true)
+        completedTaskDictionary.removeAll(keepingCapacity: true)
     }
  
     // Recommended pattern for creating a singleton
