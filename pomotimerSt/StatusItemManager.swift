@@ -50,6 +50,13 @@ class StatusItemManager: NSObject {
         popover.contentViewController = vc
     }
     
+    func showPreferances() {
+        guard let popover = popover else { return }
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PreferancesPage")) as? PreferancesViewController else { return }
+        popover.contentViewController = vc
+    }
+    
     func showQuotes() {
         guard let popover = popover else { return }
         let storyboard = NSStoryboard(name: "Main", bundle: nil)

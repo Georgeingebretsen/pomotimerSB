@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F190E06D2635E582009BA4A4 /* PreferancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190E06C2635E582009BA4A4 /* PreferancesViewController.swift */; };
+		F190E07126376D81009BA4A4 /* CustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190E07026376D81009BA4A4 /* CustomTableCell.swift */; };
 		F19F99E326116E95004958BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F99E226116E95004958BD /* AppDelegate.swift */; };
 		F19F99E526116E95004958BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F99E426116E95004958BD /* ViewController.swift */; };
 		F19F99E826116E95004958BD /* pomotimerSt.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F19F99E626116E95004958BD /* pomotimerSt.xcdatamodeld */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F190E06C2635E582009BA4A4 /* PreferancesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferancesViewController.swift; sourceTree = "<group>"; };
+		F190E07026376D81009BA4A4 /* CustomTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableCell.swift; sourceTree = "<group>"; };
 		F19F99DF26116E95004958BD /* pomotimerSt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pomotimerSt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19F99E226116E95004958BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F19F99E426116E95004958BD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +78,7 @@
 				F19F99E426116E95004958BD /* ViewController.swift */,
 				F19F99FA26124009004958BD /* SetupViewController.swift */,
 				F1DF539D262CF3AD0001F909 /* QuotesViewController.swift */,
+				F190E06C2635E582009BA4A4 /* PreferancesViewController.swift */,
 				F19F9A042612C9D4004958BD /* TimerViewController.swift */,
 				F1DF53A5262E475B0001F909 /* DoneViewController.swift */,
 				F19F99EB26116E97004958BD /* Main.storyboard */,
@@ -81,6 +86,7 @@
 				F19F99FE2612C626004958BD /* TimerObject.swift */,
 				F1DF53A2262E2F140001F909 /* QuoteManager.swift */,
 				F19F99F626116EF6004958BD /* StatusItemManager.swift */,
+				F190E07026376D81009BA4A4 /* CustomTableCell.swift */,
 				F19F99E226116E95004958BD /* AppDelegate.swift */,
 				F19F99E926116E97004958BD /* Assets.xcassets */,
 				F19F99EE26116E97004958BD /* Info.plist */,
@@ -161,7 +167,9 @@
 			files = (
 				F1DF53A3262E2F140001F909 /* QuoteManager.swift in Sources */,
 				F19F9A022612C65E004958BD /* TimerQueueManager.swift in Sources */,
+				F190E07126376D81009BA4A4 /* CustomTableCell.swift in Sources */,
 				F19F99F726116EF6004958BD /* StatusItemManager.swift in Sources */,
+				F190E06D2635E582009BA4A4 /* PreferancesViewController.swift in Sources */,
 				F1DF53A6262E475B0001F909 /* DoneViewController.swift in Sources */,
 				F19F99E526116E95004958BD /* ViewController.swift in Sources */,
 				F19F99E326116E95004958BD /* AppDelegate.swift in Sources */,

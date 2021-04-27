@@ -16,7 +16,24 @@ class QuotesViewController: NSViewController {
     @IBOutlet weak var quoteField6: NSTextField!
     @IBOutlet weak var quoteField7: NSTextField!
     var quoteManagerClass = QuoteManager.sharedInstance
-    @IBAction func backButton(_ sender: NSButton) {
+
+    @IBAction func doneButton(_ sender: NSButton) {
+        saveQuotes()
+        //access running instance of statusItemManager
+        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
+        //call the method that takes us back to the first page
+        itemManager.backToStartPage()
+    }
+    
+    @IBAction func backToPreferances(_ sender: Any) {
+        saveQuotes()
+        //access running instance of statusItemManager
+        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
+        //call the showSetup() method in that instance
+        itemManager.showPreferances()
+    }
+    
+    func saveQuotes(){
         //instantiate the new quotes
         if(quoteField1.stringValue != ""){
             quoteManagerClass.makeNewQuote(newQuote: quoteField1.stringValue)
@@ -46,15 +63,7 @@ class QuotesViewController: NSViewController {
             quoteManagerClass.makeNewQuote(newQuote: quoteField7.stringValue)
             print("added 7 ")
         }
-        
-        
-        //access running instance of statusItemManager
-        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
-        //call the method that takes us back to the first page
-        itemManager.backToStartPage()
     }
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

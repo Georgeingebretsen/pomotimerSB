@@ -6,8 +6,9 @@
 //
 
 import Cocoa
+
 //page where you set up your timers
-class SetupViewController: NSViewController {
+class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     //text field variables
     @IBOutlet weak var activity: NSTextField!
     @IBOutlet weak var duration: NSTextField!
@@ -24,7 +25,7 @@ class SetupViewController: NSViewController {
     var mainQueueClass = TimerQueueManager.sharedInstance
     
     //number of instantiated timers
-    var timers = 0;
+    var timers = 5;
     
     //gets executed right when the view is launched
     override func viewDidLoad() {
@@ -51,8 +52,12 @@ class SetupViewController: NSViewController {
         itemManager.showTimer()
     }
     
+    @IBAction func addMore(_ sender: NSButton) {
+        timers += 1
+    }
+    
     func instantiateTimers(){
-        //instantiate the new timers
+        //instantiates the new timers
         if(activity.stringValue != "" && duration.stringValue != ""){
             mainQueueClass.createNewTask(duration: duration.stringValue, title: activity.stringValue)
             print("added 1 ")
@@ -73,6 +78,24 @@ class SetupViewController: NSViewController {
             mainQueueClass.createNewTask(duration: duration5.stringValue, title: activity5.stringValue)
             print("added 5 ")
         }
+    }
+    
+    func instantiateCellTimers(){
+        var i = 0
+        while(i <= timers){
+            
+            i += 1
+        }
+    }
+    
+    //finds how many timers have been made and tells the table to make that many rows
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return timers
+    }
+    
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let userCell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "userCell"), owner: self) as? CustomTableCell else { return nil }
+        return userCell
     }
     
     override var representedObject: Any? {

@@ -1,42 +1,39 @@
 //
-//  ViewController.swift
+//  PreferancesViewController.swift
 //  pomotimerSt
 //
-//  Created by George Ingebretsen on 3/28/21.
+//  Created by George Ingebretsen on 4/25/21.
 //
 
 import Cocoa
 
-class ViewController: NSViewController {
-    
-    //move to the set up page
-    @IBAction func showSetup(_ sender: NSButton) {
+class PreferancesViewController: NSViewController {
+
+    @IBAction func goToQuotes(_ sender: NSButton) {
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
         //call the showSetup() method in that instance
-        itemManager.showSetup()
-        
+        itemManager.showQuotes()
     }
     
-    @IBAction func showPreferances(_ sender: NSButton) {
+    @IBAction func backToMain(_ sender: NSButton) {
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
-        //call the showSetup() method in that instance
-        itemManager.showPreferances()
+        //call the method that takes us back to the first page
+        itemManager.backToStartPage()
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        print("quote page loaded")
     }
-
+    
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
         }
     }
-
-
 }
-
