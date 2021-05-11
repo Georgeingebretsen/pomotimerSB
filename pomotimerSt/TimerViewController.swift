@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class TimerViewController: NSViewController {
+class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     //Text fields and button texts
     //top text to display quotes
     @IBOutlet weak var quoteText: NSTextField!
@@ -19,6 +19,10 @@ class TimerViewController: NSViewController {
     @IBOutlet weak var upcomingTimers: NSTextField!
     //button text to pause. chagnes to resume when pressed
     @IBOutlet weak var pauseButton: NSButton!
+    @IBOutlet weak var tableView: NSTableView!
+    
+    //set to 1 so that it loads the second item and skips the first
+    var indexToLoad = 1
     
     var isPaused = false
     var queueManagerClass = TimerQueueManager.sharedInstance
@@ -31,7 +35,7 @@ class TimerViewController: NSViewController {
         if(QuoteManager.sharedInstance.amountQuotes != 0){
             quoteText.stringValue = QuoteManager.sharedInstance.getRandomQuote()
         }
-        upcomingTimers.stringValue = SetupViewController().mainQueueClass.getCurrentTimers()
+        /*upcomingTimers.stringValue = SetupViewController().mainQueueClass.getCurrentTimers()*/
         timerName.stringValue = "current timer: " + queueManagerClass.findFirstTimer().getTitle()
         startFirstTimer()
     }
@@ -45,6 +49,9 @@ class TimerViewController: NSViewController {
         itemManager.backToSetupPage()
         //resets all timers
         queueManagerClass.reset()
+        //stop and reset the timer
+        timer?.invalidate()
+        timer = nil
     }
     
     //pause or resume button
@@ -83,6 +90,8 @@ class TimerViewController: NSViewController {
                     print("timers done")
                     //access running instance of statusItemManager
                     guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
+                    //resets all timers
+                    self.queueManagerClass.reset()
                     //call the method that takes us to the done page
                     itemManager.showDone()
                 }
@@ -100,9 +109,36 @@ class TimerViewController: NSViewController {
     
     func nextTimer(){
         queueManagerClass.removeFirstTimer()
+        indexToLoad = 1
+        tableView.reloadData()
         startFirstTimer()
-        upcomingTimers.stringValue = SetupViewController().mainQueueClass.getCurrentTimers()
         timerName.stringValue = "current timer: " + queueManagerClass.findFirstTimer().getTitle()
+    }
+    
+    //code for loading the custom cells
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        print("building cell")
+        guard let userCell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "secondUserCell"), owner: self) as? SecondCustomTableCell else { return nil }
+        //goes through each entry in the directory. not nessisarily sorted by the correct order.
+        for (_, task) in queueManagerClass.futureTaskDictionary {
+            //goes checks to see if the current token is the correct token that the cell should use
+            if(task.getOrderNum() == indexToLoad){
+                //sets the activity and duration strings to what was stored for this particular dictionary entry
+                let activity = task.getTitle()
+                let duration = String(task.getLengthSec())
+                //loads those strings into the lables on the cells
+                userCell.setActivity(activity: activity)
+                userCell.setDuration(duration: duration)
+            }
+        }
+        indexToLoad += 1
+        //tells the computer what to load as the custom cell
+        return userCell
+    }
+    
+    //code for telling how many rows there are
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return queueManagerClass.futureTaskDictionary.count - 1
     }
     
     override var representedObject: Any? {

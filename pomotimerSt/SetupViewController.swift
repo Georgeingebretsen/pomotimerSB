@@ -6,31 +6,24 @@
 //
 
 import Cocoa
-
 //page where you set up your timers
 class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
-    //text field variables
-    @IBOutlet weak var activity: NSTextField!
-    @IBOutlet weak var duration: NSTextField!
-    @IBOutlet weak var activity2: NSTextField!
-    @IBOutlet weak var duration2: NSTextField!
-    @IBOutlet weak var activity3: NSTextField!
-    @IBOutlet weak var duration3: NSTextField!
-    @IBOutlet weak var activity4: NSTextField!
-    @IBOutlet weak var duration4: NSTextField!
-    @IBOutlet weak var activity5: NSTextField!
-    @IBOutlet weak var duration5: NSTextField!
+
+    @IBOutlet weak var tableView: NSTableView!
+    var cellIdentifier = 0
     
     //class that manages the timers
     var mainQueueClass = TimerQueueManager.sharedInstance
     
     //number of instantiated timers
-    var timers = 5;
+    var timers = 1;
     
     //gets executed right when the view is launched
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     //back button method
@@ -44,7 +37,7 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     //"done" button
     @IBAction func GoToTimer(_ sender: NSButton) {
         //instantiates the timers with the text values
-        instantiateTimers();
+        instantiateCellTimers();
         //move to next screen
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
@@ -54,37 +47,18 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     
     @IBAction func addMore(_ sender: NSButton) {
         timers += 1
-    }
-    
-    func instantiateTimers(){
-        //instantiates the new timers
-        if(activity.stringValue != "" && duration.stringValue != ""){
-            mainQueueClass.createNewTask(duration: duration.stringValue, title: activity.stringValue)
-            print("added 1 ")
-        }
-        if(activity2.stringValue != "" && duration2.stringValue != ""){
-            mainQueueClass.createNewTask(duration: duration2.stringValue, title: activity2.stringValue)
-            print("added 2 ")
-        }
-        if(activity3.stringValue != "" && duration3.stringValue != ""){
-            mainQueueClass.createNewTask(duration: duration3.stringValue, title: activity3.stringValue)
-            print("added 3 ")
-        }
-        if(activity4.stringValue != "" && duration4.stringValue != ""){
-            mainQueueClass.createNewTask(duration: duration3.stringValue, title: activity4.stringValue)
-            print("added 4 ")
-        }
-        if(activity5.stringValue != "" && duration5.stringValue != ""){
-            mainQueueClass.createNewTask(duration: duration5.stringValue, title: activity5.stringValue)
-            print("added 5 ")
-        }
+        tableView.reloadData()
     }
     
     func instantiateCellTimers(){
         var i = 0
-        while(i <= timers){
-            
+        while(i < timers){
+            let view = self.tableView.view(atColumn: 0, row: i, makeIfNecessary: false) as? CustomTableCell
             i += 1
+            let duration = view!.getDuration()
+            let activity = view!.getActivity()
+            mainQueueClass.createNewTask(duration: duration, title: activity)
+            print("added timer")
         }
     }
     
@@ -95,6 +69,8 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let userCell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "userCell"), owner: self) as? CustomTableCell else { return nil }
+        userCell.cellIdentifier = self.cellIdentifier
+        cellIdentifier += 1
         return userCell
     }
     
@@ -105,4 +81,3 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     }
     
 }
-

@@ -43,7 +43,7 @@ class TimerQueueManager{
     }
     
     func findFirstTimer() -> TimerObject{
-        var returnedTimer = TimerObject(lengthSec: 0, title: "void", orderNum: 100, active: false)
+        var returnedTimer = TimerObject(lengthSec: 100, title: "void", orderNum: 0, active: false)
         for (_, task) in futureTaskDictionary {
             if (task.getOrderNum() == 0){
                 returnedTimer = task

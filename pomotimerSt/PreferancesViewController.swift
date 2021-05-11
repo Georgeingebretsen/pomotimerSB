@@ -23,8 +23,6 @@ class PreferancesViewController: NSViewController {
         itemManager.backToStartPage()
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

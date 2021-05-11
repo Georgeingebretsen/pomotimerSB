@@ -15,18 +15,16 @@ class DoneViewController: NSViewController {
         //call the method that takes us back to the first page
         itemManager.backToStartPage()
     }
-    
+
     //gets executed right when the view is launched
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    
+
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
         }
     }
-    
 }
-
