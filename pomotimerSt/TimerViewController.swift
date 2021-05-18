@@ -71,6 +71,12 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
             isPaused = true
         }
     }
+    @IBAction func editButton(_ sender: NSButton) {
+        //access running instance of statusItemManager
+        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
+        //call the method that takes us back to the first page
+        itemManager.editPage()
+    }
     
     func startFirstTimer(){
         //first timer in the dictionary
@@ -83,7 +89,6 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
             if(!self.isPaused){
                 seconds -= 1
             }
-            self.timerText.stringValue = "0:00:" + String(seconds)
             if(seconds == 0){
                 self.stopTimer()
                 if(self.queueManagerClass.completedTaskDictionary.count == self.queueManagerClass.numAdded){
@@ -96,13 +101,18 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
                     itemManager.showDone()
                 }
             }
+            let hoursString = String(seconds / 3600)
+            let minutesString = String((seconds % 3600) / 60)
+            let secondsString = String((seconds % 3600) % 60)
+            self.queueManagerClass.changeTimeRemaining(timeRemaining: seconds)
+            self.timerText.stringValue = hoursString + ":" + minutesString + ":" + secondsString
         }
     }
     
     func stopTimer(){
         timer?.invalidate()
         timer = nil
-        self.timerText.stringValue = "0:00:00"
+        self.timerText.stringValue = "00:00:00"
         self.nextTimer()
 
     }

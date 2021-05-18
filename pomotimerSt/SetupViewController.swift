@@ -70,9 +70,11 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let userCell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "userCell"), owner: self) as? CustomTableCell else { return nil }
         userCell.cellIdentifier = self.cellIdentifier
-        cellIdentifier += 1
+        self.cellIdentifier += 1
         return userCell
     }
+    
+    
     
     override var representedObject: Any? {
         didSet {

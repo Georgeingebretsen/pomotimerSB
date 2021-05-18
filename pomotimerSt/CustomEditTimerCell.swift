@@ -1,19 +1,17 @@
 //
-//  CustomTableCell.swift
+//  CustomEditTimerCell.swift
 //  pomotimerSt
 //
-//  Created by George Ingebretsen on 4/26/21.
+//  Created by George Ingebretsen on 5/16/21.
 //
 
 import Cocoa
 
-class CustomTableCell: NSTableCellView {
-
-    @IBOutlet weak var activityTextField: NSTextField!
+class CustomEditTimerCell: NSTableCellView {
+    @IBOutlet weak var editActivityTextField: NSTextField!
     @IBOutlet weak var hoursTextField: NSTextField!
     @IBOutlet weak var minutesTextField: NSTextField!
     @IBOutlet weak var secondsTextField: NSTextField!
-    
     var cellIdentifier = 0
     var hh = ""
     var mm = ""
@@ -21,8 +19,9 @@ class CustomTableCell: NSTableCellView {
     var hhI = 0
     var mmI = 0
     var ssI = 0
-    
-    @IBAction func editingHoursTextField(_ sender: NSTextField) {
+    @IBAction func editedEditActivityField(_ sender: NSTextField) {
+    }
+    @IBAction func editedHoursTextField(_ sender: NSTextField) {
         let currentInput = hoursTextField.stringValue
         // Refuse more than 2 chars
         if (currentInput.count >= 3) {
@@ -41,10 +40,8 @@ class CustomTableCell: NSTableCellView {
         }else{
             //if it is valid, set the mm to an int
             hhI = Int(hh)!
-            print("valid input")
         }
     }
-    
     @IBAction func editedMinutesTextField(_ sender: NSTextField) {
         let currentInput = minutesTextField.stringValue
         // Refuse more than 2 chars
@@ -63,44 +60,52 @@ class CustomTableCell: NSTableCellView {
         }else{
             //if it is valid, set the mm to an int
             mmI = Int(mm)!
-            print("valid input")
         }
     }
-    
     @IBAction func editedSecondsTextField(_ sender: NSTextField) {
         let currentInput = secondsTextField.stringValue
         // Refuse more than 2 chars
         if (currentInput.count >= 3) {
             // Clear it
-            secondsTextField.stringValue = ""
+            minutesTextField.stringValue = ""
             // Could play a beep
             return
         }
         ss = currentInput
         // checks if the min are valid
         if Int(ss) == nil || Int(ss)! > 59  {
-            secondsTextField.stringValue = ""    // Clear it
+            minutesTextField.stringValue = ""    // Clear it
             // Could play a beep
             return
         }else{
             //if it is valid, set the mm to an int
             ssI = Int(ss)!
-            print("valid input")
         }
     }
+    @IBAction func deleteTask(_ sender: NSButton) {
+    }
     
+    
+    func setActivity(activity:String){
+        editActivityTextField.stringValue = activity
+    }
+    
+    func setDuration(durationInSeconds: String){
+        //the total amount of time in seconds
+        let total = Int(durationInSeconds)!
+        //logic to find all of the hours minutes seconds values
+        var minutesString = String(total / 60)
+        let secondsString = String(total % 60)
+        let hoursString = String((total / 60) / 60)
+        minutesString = String((total / 60) % 60)
+        //set all of the text fields
+        minutesTextField.stringValue = minutesString
+        secondsTextField.stringValue = secondsString
+        hoursTextField.stringValue = hoursString
+
+    }
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         // Drawing code here.
-    }
-    
-    func getActivity() -> String{
-        return activityTextField.stringValue
-    }
-    
-    func getDuration() -> String{
-        let totalMin = (hhI * 60 * 60) + (mmI * 60) + ssI
-        print("total sec:" + String(totalMin))
-        return String(totalMin)
     }
 }

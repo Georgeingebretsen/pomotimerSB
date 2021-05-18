@@ -93,6 +93,14 @@ class StatusItemManager: NSObject {
         showConverterVC()
     }
     
+    //the edit button to go to the edit page
+    func editPage() {
+        guard let popover = popover else { return }
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "EditPage")) as? EditTimerViewController else { return }
+        popover.contentViewController = vc
+    }
+    
     //popover object
     fileprivate func initPopover() {
         popover = NSPopover()

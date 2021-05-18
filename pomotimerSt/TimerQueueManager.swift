@@ -9,6 +9,7 @@ import Foundation
 
 class TimerQueueManager{
     var numAdded = 0
+    private var currentTimeRemaining = 0
     var futureTaskDictionary = Dictionary<String, TimerObject>()
     var completedTaskDictionary = Dictionary<String, TimerObject>()
     
@@ -74,6 +75,14 @@ class TimerQueueManager{
         numAdded = 0
         futureTaskDictionary.removeAll(keepingCapacity: true)
         completedTaskDictionary.removeAll(keepingCapacity: true)
+    }
+    
+    func changeTimeRemaining(timeRemaining: Int){
+        currentTimeRemaining = timeRemaining
+    }
+    
+    func getTimeRemaining() -> Int{
+        return currentTimeRemaining
     }
  
     // Recommended pattern for creating a singleton

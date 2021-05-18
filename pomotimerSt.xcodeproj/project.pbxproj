@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F1448B132650487D00544B3E /* CustomQuoteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1448B122650487D00544B3E /* CustomQuoteTableCell.swift */; };
+		F1448B152651854300544B3E /* EditTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1448B142651854300544B3E /* EditTimerViewController.swift */; };
+		F1448B17265189FC00544B3E /* CustomEditTimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1448B16265189FC00544B3E /* CustomEditTimerCell.swift */; };
 		F16FADDD2640C491009AA8E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F16FADDB2640C491009AA8E1 /* Main.storyboard */; };
 		F16FADE02640CAE6009AA8E1 /* SecondCustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16FADDF2640CAE6009AA8E1 /* SecondCustomTableCell.swift */; };
 		F190E06D2635E582009BA4A4 /* PreferancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190E06C2635E582009BA4A4 /* PreferancesViewController.swift */; };
@@ -26,6 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F1448B122650487D00544B3E /* CustomQuoteTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuoteTableCell.swift; sourceTree = "<group>"; };
+		F1448B142651854300544B3E /* EditTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTimerViewController.swift; sourceTree = "<group>"; };
+		F1448B16265189FC00544B3E /* CustomEditTimerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEditTimerCell.swift; sourceTree = "<group>"; };
 		F16FADDC2640C491009AA8E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F16FADDF2640CAE6009AA8E1 /* SecondCustomTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCustomTableCell.swift; sourceTree = "<group>"; };
 		F190E06C2635E582009BA4A4 /* PreferancesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferancesViewController.swift; sourceTree = "<group>"; };
@@ -82,14 +88,17 @@
 				F1DF539D262CF3AD0001F909 /* QuotesViewController.swift */,
 				F19F99FA26124009004958BD /* SetupViewController.swift */,
 				F19F9A042612C9D4004958BD /* TimerViewController.swift */,
+				F1448B142651854300544B3E /* EditTimerViewController.swift */,
 				F1DF53A5262E475B0001F909 /* DoneViewController.swift */,
 				F16FADDB2640C491009AA8E1 /* Main.storyboard */,
 				F19F9A012612C65E004958BD /* TimerQueueManager.swift */,
 				F19F99FE2612C626004958BD /* TimerObject.swift */,
 				F1DF53A2262E2F140001F909 /* QuoteManager.swift */,
-				F19F99F626116EF6004958BD /* StatusItemManager.swift */,
 				F190E07026376D81009BA4A4 /* CustomTableCell.swift */,
 				F16FADDF2640CAE6009AA8E1 /* SecondCustomTableCell.swift */,
+				F1448B122650487D00544B3E /* CustomQuoteTableCell.swift */,
+				F1448B16265189FC00544B3E /* CustomEditTimerCell.swift */,
+				F19F99F626116EF6004958BD /* StatusItemManager.swift */,
 				F19F99E226116E95004958BD /* AppDelegate.swift */,
 				F19F99E926116E97004958BD /* Assets.xcassets */,
 				F19F99EE26116E97004958BD /* Info.plist */,
@@ -176,11 +185,14 @@
 				F1DF53A6262E475B0001F909 /* DoneViewController.swift in Sources */,
 				F19F99E526116E95004958BD /* ViewController.swift in Sources */,
 				F16FADE02640CAE6009AA8E1 /* SecondCustomTableCell.swift in Sources */,
+				F1448B17265189FC00544B3E /* CustomEditTimerCell.swift in Sources */,
 				F19F99E326116E95004958BD /* AppDelegate.swift in Sources */,
 				F19F9A052612C9D4004958BD /* TimerViewController.swift in Sources */,
 				F19F99E826116E95004958BD /* pomotimerSt.xcdatamodeld in Sources */,
 				F19F99FF2612C626004958BD /* TimerObject.swift in Sources */,
+				F1448B132650487D00544B3E /* CustomQuoteTableCell.swift in Sources */,
 				F1DF539E262CF3AD0001F909 /* QuotesViewController.swift in Sources */,
+				F1448B152651854300544B3E /* EditTimerViewController.swift in Sources */,
 				F19F99FB26124009004958BD /* SetupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
