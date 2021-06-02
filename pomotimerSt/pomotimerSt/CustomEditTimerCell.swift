@@ -24,11 +24,13 @@ class CustomEditTimerCell: NSTableCellView {
     var ssI = 0
     
     @IBAction func editedEditActivityField(_ sender: NSTextField) {
+        //check length requirements here
     }
     
     @IBAction func deleteButton(_ sender: NSButton) {
         queueManagerClass.removeTimer(cellIdentifier: self.cellIdentifier)
-
+        clearAllCellValues()
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierDeleteButton"), object: nil)
     }
     
     @IBAction func editedHoursTextField(_ sender: NSTextField) {
@@ -95,25 +97,58 @@ class CustomEditTimerCell: NSTableCellView {
         }
     }
     
+    func clearAllCellValues(){
+        setActivity(activity: "")
+        setDuration(durationInSeconds: "")
+        hh = ""
+        mm = ""
+        ss = ""
+        hhI = 0
+        mmI = 0
+        ssI = 0
+    }
     
     func setActivity(activity:String){
         editActivityTextField.stringValue = activity
     }
     
     func setDuration(durationInSeconds: String){
-        //the total amount of time in seconds
-        let total = Int(durationInSeconds)!
-        //logic to find all of the hours minutes seconds values
-        var minutesString = String(total / 60)
-        let secondsString = String(total % 60)
-        let hoursString = String((total / 60) / 60)
-        minutesString = String((total / 60) % 60)
-        //set all of the text fields
-        minutesTextField.stringValue = minutesString
-        secondsTextField.stringValue = secondsString
-        hoursTextField.stringValue = hoursString
-
+        if(durationInSeconds == ""){
+            minutesTextField.stringValue = ""
+            secondsTextField.stringValue = ""
+            hoursTextField.stringValue = ""
+        }else{
+            //the total amount of time in seconds
+            let total = Int(durationInSeconds)!
+            //logic to find all of the hours minutes seconds values
+            var minutesString = String(total / 60)
+            let secondsString = String(total % 60)
+            let hoursString = String((total / 60) / 60)
+            minutesString = String((total / 60) % 60)
+            //set all of the text fields
+            minutesTextField.stringValue = minutesString
+            secondsTextField.stringValue = secondsString
+            hoursTextField.stringValue = hoursString
+        }
     }
+    
+    func makeSureValuesInstantiate(){
+        mmI = Int(minutesTextField.stringValue) ?? 0
+        ssI = Int(secondsTextField.stringValue) ?? 0
+        hhI = Int(hoursTextField.stringValue) ?? 0
+    }
+    
+    func getActivity() -> String{
+        return editActivityTextField.stringValue
+    }
+    
+    func getDuration() -> String{
+        makeSureValuesInstantiate()
+        let totalMin = (hhI * 60 * 60) + (mmI * 60) + ssI
+        print("total sec:" + String(totalMin))
+        return String(totalMin)
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         // Drawing code here.

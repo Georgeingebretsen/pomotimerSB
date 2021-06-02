@@ -21,20 +21,21 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     
     //set to 1 so that it loads the second item and skips the first
     var indexToLoad = 1
-    
     var isPaused = false
     var queueManagerClass = TimerQueueManager.sharedInstance
     var timer: Timer? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("num in task directory:")
+        print(queueManagerClass.futureTaskDictionary.count)
         // Do any additional setup after loading the view.
         print("timerViewController")
         if(QuoteManager.sharedInstance.amountQuotes != 0){
             quoteText.stringValue = QuoteManager.sharedInstance.getRandomQuote()
         }
-        /*upcomingTimers.stringValue = SetupViewController().mainQueueClass.getCurrentTimers()*/
-        timerName.stringValue = "current timer: " + queueManagerClass.findFirstTimer().getTitle()
+        timerName.stringValue = queueManagerClass.findFirstTimer().getTitle()
+        tableView.reloadData()
         startFirstTimer()
     }
     
@@ -114,8 +115,6 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         timer?.invalidate()
         timer = nil
         self.timerText.stringValue = "00:00:00"
-        self.nextTimer()
-
     }
     
     func nextTimer(){
@@ -123,7 +122,7 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         indexToLoad = 1
         tableView.reloadData()
         startFirstTimer()
-        timerName.stringValue = "current timer: " + queueManagerClass.findFirstTimer().getTitle()
+        timerName.stringValue = queueManagerClass.findFirstTimer().getTitle()
     }
     
     //code for loading the custom cells

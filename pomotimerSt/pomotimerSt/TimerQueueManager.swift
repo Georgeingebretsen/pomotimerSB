@@ -68,6 +68,7 @@ class TimerQueueManager{
     }
     
     func removeTimer(cellIdentifier: Int){
+        //find the name of the cell we're removing
         var removeTaskName = ""
         for (name, task) in futureTaskDictionary {
             if (task.getOrderNum() == cellIdentifier){
@@ -75,10 +76,14 @@ class TimerQueueManager{
                 removeTaskName = name
             }
         }
-        futureTaskDictionary[removeTaskName] = nil
+        //change all of the other cells orderNum tag to represent their new position
         for (name, task) in futureTaskDictionary {
-            futureTaskDictionary[name] = TimerObject(lengthSec: task.getLengthSec(), title: task.getTitle(), orderNum: task.getOrderNum()-1, active: false)
+            if(task.getOrderNum() > futureTaskDictionary[removeTaskName]!.getOrderNum()){
+                futureTaskDictionary[name] = TimerObject(lengthSec: task.getLengthSec(), title: task.getTitle(), orderNum: task.getOrderNum()-1, active: false)
+            }
         }
+        //finally remove the cell from the dictionary
+        futureTaskDictionary[removeTaskName] = nil
     }
     
     func setToActive(activeTimer: TimerObject) -> TimerObject{
