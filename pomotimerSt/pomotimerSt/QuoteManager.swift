@@ -16,6 +16,17 @@ class QuoteManager{
         quoteDictionary[amountQuotes] = newQuote
     }
     
+    func removeQuote(cellIdentifier: Int){
+        //change all of the other cells orderNum tag to represent their new position
+        for (cellNum, _) in quoteDictionary {
+            if(cellNum > cellIdentifier){
+                quoteDictionary[cellNum] = nil
+            }
+        }
+        //remove the cell from the dictionary
+        quoteDictionary[cellIdentifier] = nil
+    }
+    
     func getRandomQuote() -> String{
         let number = Int.random(in: 1...amountQuotes)
         return quoteDictionary[number]!

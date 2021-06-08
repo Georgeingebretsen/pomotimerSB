@@ -24,6 +24,12 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierSetupDeleteButton"), object: nil)
+    }
+    
+    @objc func methodOfReceivedNotification(notification: Notification) {
+        timers -= 1
+        reloadTable()
     }
     
     //back button method
@@ -37,7 +43,7 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     //"done" button
     @IBAction func GoToTimer(_ sender: NSButton) {
         //instantiates the timers with the text values
-        instantiateCellTimers();
+        instantiateCellTimers()
         //move to next screen
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
@@ -74,7 +80,10 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         return userCell
     }
     
-    
+    func reloadTable(){
+        print("reloading")
+        tableView.reloadData()
+    }
     
     override var representedObject: Any? {
         didSet {

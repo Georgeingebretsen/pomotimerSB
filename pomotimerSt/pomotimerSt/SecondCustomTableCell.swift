@@ -25,6 +25,6 @@ class SecondCustomTableCell: NSTableCellView {
         let hourValue = Int(duration)! / 3600
         let minutesValue = (Int(duration)! % 3600) / 60
         let secondsValue = String((Int(duration)! % 3600) % 60)
-        durationLabel.stringValue = duration
+        durationLabel.stringValue = String(hourValue) + ":" + String(minutesValue) + ":" + String(secondsValue)
     }
 }

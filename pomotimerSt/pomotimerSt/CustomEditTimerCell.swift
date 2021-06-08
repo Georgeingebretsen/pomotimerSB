@@ -28,9 +28,9 @@ class CustomEditTimerCell: NSTableCellView {
     }
     
     @IBAction func deleteButton(_ sender: NSButton) {
-        queueManagerClass.removeTimer(cellIdentifier: self.cellIdentifier)
         clearAllCellValues()
-        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierDeleteButton"), object: nil)
+        let cellIdentifierDic:[String: Int] = ["cellIdentifier": cellIdentifier]
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierEditDeleteButton"), object: cellIdentifier, userInfo: cellIdentifierDic)
     }
     
     @IBAction func editedHoursTextField(_ sender: NSTextField) {

@@ -14,7 +14,7 @@ class TimerQueueManager{
     var completedTaskDictionary = Dictionary<String, TimerObject>()
     
     func createNewTask(duration: String, title: String){
-        let durationInt = Int(duration)!
+        let durationInt = Int(duration) ?? 0
         futureTaskDictionary[title] = TimerObject(lengthSec: durationInt, title: title, orderNum: numAdded, active: false)
         numAdded += 1
     }

@@ -13,6 +13,7 @@ class QuotesViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     var cellIdentifier = 0
     
     var quoteManagerClass = QuoteManager.sharedInstance
+    
     //number of quotes the user has added
     var quotes = 1
 
@@ -61,12 +62,23 @@ class QuotesViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         return self.quotes
     }
     
+    func reloadTable(){
+        print("reloading")
+        quotesTableView.reloadData()
+    }
+    
+    @objc func methodOfReceivedNotification(notification: Notification) {
+        quotes -= 1
+        reloadTable()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         quotesTableView.delegate = self
         quotesTableView.dataSource = self
         print("quote page loaded")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierQuoteDeleteButton"), object: nil)
     }
     
     override var representedObject: Any? {

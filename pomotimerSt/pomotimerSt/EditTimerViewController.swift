@@ -22,7 +22,6 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
     
     //set to 1 so that it loads the second item and skips the first
     var indexToLoad = 1
-    var additionalTimers = 0
     var queueManagerClass = TimerQueueManager.sharedInstance
     
     override func viewDidLoad() {
@@ -31,15 +30,26 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
         // Do any additional setup after loading the view.
         fillTextBoxes()
         timerName.stringValue = queueManagerClass.findFirstTimer().getTitle()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierDeleteButton"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationDeleteButton(notification:)), name: Notification.Name("NotificationIdentifierEditDeleteButton"), object: nil)
     }
     
-    @objc func methodOfReceivedNotification(notification: Notification) {
+    @objc func methodOfReceivedNotificationDeleteButton(notification: Notification) {
+        saveCells()
+        //get the cellIdentifier to delete
+        let passedDictionary = notification.userInfo
+        let numToDelete = passedDictionary!["cellIdentifier"]
+        //delete the entry in the dictionary with the given cell identifier
+        queueManagerClass.removeTimer(cellIdentifier: numToDelete as! Int)
+        //change the amount of cells to load
+        
+        //refresh the table to show the new dictionary values
         reloadTable()
     }
     
     @IBAction func backButton(_ sender: NSButton) {
+        //save all of the cells that are currently displayed
         saveCells()
+        //take you back to the timer page
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
         //call the method that takes us back to the first page
@@ -47,7 +57,8 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
     }
     
     @IBAction func newCell(_ sender: NSButton) {
-        additionalTimers += 1
+        saveCells()
+        queueManagerClass.createNewTask(duration: "", title: "")
         reloadTable()
     }
     
@@ -114,8 +125,6 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
     
     //code for loading the custom cells
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        print(queueManagerClass.futureTaskDictionary.count)
-        print("building cell")
         guard let userCell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CustomEditTimerCell"), owner: self) as? CustomEditTimerCell else { return nil }
         //goes through each entry in the directory. not nessisarily sorted by the correct order.
         for (_, task) in queueManagerClass.futureTaskDictionary {
@@ -136,7 +145,7 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
 
     //code for telling how many rows there are
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return (queueManagerClass.futureTaskDictionary.count - 1) + additionalTimers
+        return (queueManagerClass.futureTaskDictionary.count - 1)
     }
 
     func reloadTable(){
@@ -145,7 +154,8 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
     }
 
     func saveCells(){
-        print(queueManagerClass.futureTaskDictionary.count)
+        //save the amount of tasks we had before deleting
+        let dictionaryCount = queueManagerClass.futureTaskDictionary.count
         //delete the current dictionary of tasks
         queueManagerClass.reset()
         //save the top timer
@@ -156,16 +166,14 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
         let activityTop = timerName.stringValue
         queueManagerClass.createNewTask(duration: totalDurationTop, title: activityTop)
         //save everything in the tableView
-        let dictionaryCount = queueManagerClass.futureTaskDictionary.count
-        print(dictionaryCount)
+        print("dictionary count: " + String(dictionaryCount))
         var i = 0
-        while(i < (dictionaryCount - 1) + additionalTimers){
+        while(i < dictionaryCount - 1){
             let view = self.tableView.view(atColumn: 0, row: i, makeIfNecessary: false) as? CustomEditTimerCell
             let duration = view?.getDuration()
             let activity = view?.getActivity()
             queueManagerClass.createNewTask(duration: duration ?? "", title: activity ?? "")
             i += 1
-            print("added timer")
         }
     }
 

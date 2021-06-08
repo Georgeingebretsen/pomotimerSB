@@ -10,6 +10,7 @@ import Cocoa
 class CustomQuoteTableCell: NSTableCellView {
     @IBOutlet weak var quoteTextField: NSTextField!
     var cellIdentifier = 0
+    var quoteManagerClass = QuoteManager.sharedInstance
     
     @IBAction func editingQuoteField(_ sender: NSTextField) {
         let currentInput = quoteTextField.stringValue
@@ -18,6 +19,15 @@ class CustomQuoteTableCell: NSTableCellView {
                 // Could play a beep
             return
         }
+    }
+    
+    @IBAction func deleteQuote(_ sender: NSButton) {
+        //clear this cells text
+        quoteTextField.stringValue = ""
+        //tell the quote manager class to delete this cell
+        quoteManagerClass.removeQuote(cellIdentifier: cellIdentifier)
+        //tell the tableview to reload the table
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierQuoteDeleteButton"), object: nil)
     }
     
     func getQuote() -> String{
