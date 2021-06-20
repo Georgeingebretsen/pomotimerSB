@@ -32,16 +32,14 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
         timerName.stringValue = queueManagerClass.findFirstTimer().getTitle()
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationDeleteButton(notification:)), name: Notification.Name("NotificationIdentifierEditDeleteButton"), object: nil)
     }
-    
+
     @objc func methodOfReceivedNotificationDeleteButton(notification: Notification) {
         saveCells()
-        //get the cellIdentifier to delete
+        //get the number of the cell that we want to delete
         let passedDictionary = notification.userInfo
         let numToDelete = passedDictionary!["cellIdentifier"]
         //delete the entry in the dictionary with the given cell identifier
-        queueManagerClass.removeTimer(cellIdentifier: numToDelete as! Int)
-        //change the amount of cells to load
-        
+        queueManagerClass.removeTimer(cellToRemove: numToDelete as! Int)
         //refresh the table to show the new dictionary values
         reloadTable()
     }
@@ -123,19 +121,20 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
         secondsTextBox.stringValue = String((totalSeconds % 3600) % 60)
     }
     
-    //code for loading the custom cells
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let userCell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CustomEditTimerCell"), owner: self) as? CustomEditTimerCell else { return nil }
         //goes through each entry in the directory. not nessisarily sorted by the correct order.
-        for (_, task) in queueManagerClass.futureTaskDictionary {
+        for (orderNum, task) in queueManagerClass.futureTaskDictionary {
             //goes checks to see if the current token is the correct token that the cell should use
-            if(task.getOrderNum() == indexToLoad){
+            if(orderNum == indexToLoad){
                 //sets the activity and duration strings to what was stored for this particular dictionary entry
                 let activity = task.getTitle()
                 let duration = String(task.getLengthSec())
                 //loads those strings into the lables on the cells
                 userCell.setActivity(activity: activity)
                 userCell.setDuration(durationInSeconds: duration)
+                //loads other variables on the cell
+                userCell.cellIdentifier = orderNum
             }
         }
         indexToLoad += 1
@@ -150,6 +149,7 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
 
     func reloadTable(){
         print("reloading")
+        indexToLoad = 1
         tableView.reloadData()
     }
 
@@ -157,7 +157,7 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
         //save the amount of tasks we had before deleting
         let dictionaryCount = queueManagerClass.futureTaskDictionary.count
         //delete the current dictionary of tasks
-        queueManagerClass.reset()
+        queueManagerClass.resetTasks()
         //save the top timer
         let hourValue = Int(hoursTextBox.stringValue)!
         let minutesValue = Int(hoursTextBox.stringValue)!

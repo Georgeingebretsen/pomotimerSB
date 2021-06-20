@@ -37,9 +37,8 @@ class CustomTableCell: NSTableCellView, NSTextFieldDelegate {
     }
     
     @IBAction func deleteButton(_ sender: NSButton) {
-        queueManagerClass.removeTimer(cellIdentifier: self.cellIdentifier)
-        clearAllCellValues()
-        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSetupDeleteButton"), object: nil)
+        let cellIdentifierDic:[String: Int] = ["cellIdentifier": cellIdentifier]
+        NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierSetupDeleteButton"), object: cellIdentifier, userInfo: cellIdentifierDic)
     }
     
     @IBAction func editingHoursTextField(_ sender: NSTextField) {

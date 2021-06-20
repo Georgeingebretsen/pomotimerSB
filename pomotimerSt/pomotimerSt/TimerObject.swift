@@ -10,18 +10,12 @@ import Foundation
 struct TimerObject: Equatable, Hashable{
     //timer object variables
     private var lengthSec = 0
-    private var timeRemainingSec = 0
     private var title = ""
-    private var orderNum = 0
-    private var active = false
     
     //runs when the class is instantiated. sets up the class variables
-    init(lengthSec: Int, title: String, orderNum: Int, active: Bool) {
+    init(lengthSec: Int, title: String) {
         self.lengthSec = lengthSec
-        self.timeRemainingSec = lengthSec
         self.title = title
-        self.orderNum = orderNum
-        self.active = active
     }
  
     //getters
@@ -29,16 +23,8 @@ struct TimerObject: Equatable, Hashable{
         return lengthSec
     }
     
-    func getTimeRemainingSec() -> Int{
-        return timeRemainingSec
-    }
-    
     func getTitle() -> String{
         return title
-    }
-    
-    func getOrderNum() -> Int{
-        return orderNum
     }
     
     // makes hashable and equatable

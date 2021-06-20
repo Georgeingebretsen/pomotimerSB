@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class CustomEditTimerCell: NSTableCellView {
+class CustomEditTimerCell: NSTableCellView, NSTextFieldDelegate {
     @IBOutlet weak var editActivityTextField: NSTextField!
     @IBOutlet weak var hoursTextField: NSTextField!
     @IBOutlet weak var minutesTextField: NSTextField!
@@ -23,12 +23,23 @@ class CustomEditTimerCell: NSTableCellView {
     var mmI = 0
     var ssI = 0
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        editActivityTextField.delegate = self
+        hoursTextField.delegate = self
+        minutesTextField.delegate = self
+        secondsTextField.delegate = self
+        editActivityTextField.tag = 0
+        hoursTextField.tag = 1
+        minutesTextField.tag = 2
+        secondsTextField.tag = 3
+    }
+    
     @IBAction func editedEditActivityField(_ sender: NSTextField) {
         //check length requirements here
     }
     
     @IBAction func deleteButton(_ sender: NSButton) {
-        clearAllCellValues()
         let cellIdentifierDic:[String: Int] = ["cellIdentifier": cellIdentifier]
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifierEditDeleteButton"), object: cellIdentifier, userInfo: cellIdentifierDic)
     }
@@ -147,6 +158,47 @@ class CustomEditTimerCell: NSTableCellView {
         let totalMin = (hhI * 60 * 60) + (mmI * 60) + ssI
         print("total sec:" + String(totalMin))
         return String(totalMin)
+    }
+    
+    public func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        if (commandSelector == #selector(NSResponder.insertNewline(_:))) {
+            // Do something against ENTER key
+            print("enter")
+            textFieldShouldReturn(findFirstResponder())
+            return true
+        }
+        // return true if the action was handled; otherwise false
+        return false
+    }
+    
+    func findFirstResponder() -> NSTextField{
+        if((editActivityTextField.currentEditor()) != nil){
+            return editActivityTextField
+        }
+        if((hoursTextField.currentEditor()) != nil){
+            return hoursTextField
+        }
+        if((minutesTextField.currentEditor()) != nil){
+            return minutesTextField
+        }
+        if((secondsTextField.currentEditor()) != nil){
+            return secondsTextField
+        }
+        return hoursTextField
+    }
+    
+    func textFieldShouldReturn(_ textField: NSTextField) {
+        let currentTag = textField.tag
+        var nextTag = 0
+        if(currentTag < 3){
+            nextTag = currentTag + 1
+        }
+        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
+            nextResponder.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+
     }
     
     override func draw(_ dirtyRect: NSRect) {

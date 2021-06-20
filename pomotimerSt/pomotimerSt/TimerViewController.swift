@@ -31,9 +31,6 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         print(queueManagerClass.futureTaskDictionary.count)
         // Do any additional setup after loading the view.
         print("timerViewController")
-        if(QuoteManager.sharedInstance.amountQuotes != 0){
-            quoteText.stringValue = QuoteManager.sharedInstance.getRandomQuote()
-        }
         timerName.stringValue = queueManagerClass.findFirstTimer().getTitle()
         tableView.reloadData()
         startFirstTimer()
@@ -47,7 +44,7 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         //call the method that takes us back to the first page
         itemManager.backToSetupPage()
         //resets all timers
-        queueManagerClass.reset()
+        queueManagerClass.resetTasks()
         //stop and reset the timer
         timer?.invalidate()
         timer = nil
@@ -81,26 +78,25 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     }
     
     func startFirstTimer(){
-        //first timer in the dictionary
-        let activeTimer = queueManagerClass.findFirstTimer()
-        //creates a new instantiation with the same values except that its now set to "active"
-        let newActiveTimer = queueManagerClass.setToActive(activeTimer: activeTimer)
-        //how long the item lasts
-        var seconds = newActiveTimer.getLengthSec()
+        //how long the timer lasts
+        var seconds = queueManagerClass.findFirstTimer().getLengthSec()
+        //start the countdown repeater
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ tempTimer in
             if(!self.isPaused){
                 seconds -= 1
             }
             if(seconds == 0){
                 self.stopTimer()
-                if(self.queueManagerClass.completedTaskDictionary.count == self.queueManagerClass.numAdded){
+                if(self.queueManagerClass.futureTaskDictionary.count == 1){
                     print("timers done")
                     //access running instance of statusItemManager
                     guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
                     //resets all timers
-                    self.queueManagerClass.reset()
+                    self.queueManagerClass.resetTasks()
                     //call the method that takes us to the done page
                     itemManager.showDone()
+                }else{
+                    self.nextTimer()
                 }
             }
             let hoursString = String(seconds / 3600)
@@ -118,7 +114,7 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     }
     
     func nextTimer(){
-        queueManagerClass.removeFirstTimer()
+        queueManagerClass.removeTimer(cellToRemove: 0)
         indexToLoad = 1
         tableView.reloadData()
         startFirstTimer()
@@ -130,9 +126,9 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         print("building cell")
         guard let userCell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "secondUserCell"), owner: self) as? SecondCustomTableCell else { return nil }
         //goes through each entry in the directory. not nessisarily sorted by the correct order.
-        for (_, task) in queueManagerClass.futureTaskDictionary {
+        for (orderNum, task) in queueManagerClass.futureTaskDictionary {
             //goes checks to see if the current token is the correct token that the cell should use
-            if(task.getOrderNum() == indexToLoad){
+            if(orderNum == indexToLoad){
                 //sets the activity and duration strings to what was stored for this particular dictionary entry
                 let activity = task.getTitle()
                 let duration = String(task.getLengthSec())

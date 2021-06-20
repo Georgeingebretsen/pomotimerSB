@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F1448B132650487D00544B3E /* CustomQuoteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1448B122650487D00544B3E /* CustomQuoteTableCell.swift */; };
 		F1448B152651854300544B3E /* EditTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1448B142651854300544B3E /* EditTimerViewController.swift */; };
 		F1448B17265189FC00544B3E /* CustomEditTimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1448B16265189FC00544B3E /* CustomEditTimerCell.swift */; };
 		F16FADDD2640C491009AA8E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F16FADDB2640C491009AA8E1 /* Main.storyboard */; };
@@ -23,13 +22,10 @@
 		F19F99FF2612C626004958BD /* TimerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F99FE2612C626004958BD /* TimerObject.swift */; };
 		F19F9A022612C65E004958BD /* TimerQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F9A012612C65E004958BD /* TimerQueueManager.swift */; };
 		F19F9A052612C9D4004958BD /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F9A042612C9D4004958BD /* TimerViewController.swift */; };
-		F1DF539E262CF3AD0001F909 /* QuotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DF539D262CF3AD0001F909 /* QuotesViewController.swift */; };
-		F1DF53A3262E2F140001F909 /* QuoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DF53A2262E2F140001F909 /* QuoteManager.swift */; };
 		F1DF53A6262E475B0001F909 /* DoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DF53A5262E475B0001F909 /* DoneViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F1448B122650487D00544B3E /* CustomQuoteTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuoteTableCell.swift; sourceTree = "<group>"; };
 		F1448B142651854300544B3E /* EditTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTimerViewController.swift; sourceTree = "<group>"; };
 		F1448B16265189FC00544B3E /* CustomEditTimerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEditTimerCell.swift; sourceTree = "<group>"; };
 		F16FADDC2640C491009AA8E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -48,8 +44,6 @@
 		F19F99FE2612C626004958BD /* TimerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerObject.swift; sourceTree = "<group>"; };
 		F19F9A012612C65E004958BD /* TimerQueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerQueueManager.swift; sourceTree = "<group>"; };
 		F19F9A042612C9D4004958BD /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
-		F1DF539D262CF3AD0001F909 /* QuotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesViewController.swift; sourceTree = "<group>"; };
-		F1DF53A2262E2F140001F909 /* QuoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteManager.swift; sourceTree = "<group>"; };
 		F1DF53A5262E475B0001F909 /* DoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,7 +79,6 @@
 			children = (
 				F19F99E426116E95004958BD /* ViewController.swift */,
 				F190E06C2635E582009BA4A4 /* PreferancesViewController.swift */,
-				F1DF539D262CF3AD0001F909 /* QuotesViewController.swift */,
 				F19F99FA26124009004958BD /* SetupViewController.swift */,
 				F19F9A042612C9D4004958BD /* TimerViewController.swift */,
 				F1448B142651854300544B3E /* EditTimerViewController.swift */,
@@ -93,10 +86,8 @@
 				F16FADDB2640C491009AA8E1 /* Main.storyboard */,
 				F19F9A012612C65E004958BD /* TimerQueueManager.swift */,
 				F19F99FE2612C626004958BD /* TimerObject.swift */,
-				F1DF53A2262E2F140001F909 /* QuoteManager.swift */,
 				F190E07026376D81009BA4A4 /* CustomTableCell.swift */,
 				F16FADDF2640CAE6009AA8E1 /* SecondCustomTableCell.swift */,
-				F1448B122650487D00544B3E /* CustomQuoteTableCell.swift */,
 				F1448B16265189FC00544B3E /* CustomEditTimerCell.swift */,
 				F19F99F626116EF6004958BD /* StatusItemManager.swift */,
 				F19F99E226116E95004958BD /* AppDelegate.swift */,
@@ -177,7 +168,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1DF53A3262E2F140001F909 /* QuoteManager.swift in Sources */,
 				F19F9A022612C65E004958BD /* TimerQueueManager.swift in Sources */,
 				F190E07126376D81009BA4A4 /* CustomTableCell.swift in Sources */,
 				F19F99F726116EF6004958BD /* StatusItemManager.swift in Sources */,
@@ -190,8 +180,6 @@
 				F19F9A052612C9D4004958BD /* TimerViewController.swift in Sources */,
 				F19F99E826116E95004958BD /* pomotimerSt.xcdatamodeld in Sources */,
 				F19F99FF2612C626004958BD /* TimerObject.swift in Sources */,
-				F1448B132650487D00544B3E /* CustomQuoteTableCell.swift in Sources */,
-				F1DF539E262CF3AD0001F909 /* QuotesViewController.swift in Sources */,
 				F1448B152651854300544B3E /* EditTimerViewController.swift in Sources */,
 				F19F99FB26124009004958BD /* SetupViewController.swift in Sources */,
 			);

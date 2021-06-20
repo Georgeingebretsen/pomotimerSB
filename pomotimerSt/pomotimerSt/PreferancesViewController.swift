@@ -8,13 +8,6 @@
 import Cocoa
 
 class PreferancesViewController: NSViewController {
-
-    @IBAction func goToQuotes(_ sender: NSButton) {
-        //access running instance of statusItemManager
-        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
-        //call the showSetup() method in that instance
-        itemManager.showQuotes()
-    }
     
     @IBAction func backToMain(_ sender: NSButton) {
         //access running instance of statusItemManager
