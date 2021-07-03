@@ -8,7 +8,8 @@
 import Foundation
 
 class TimerQueueManager{
-    private var currentTimeRemaining = 0
+    var currentTimeRemaining = 0
+    var timerIsPaused = false
     var futureTaskDictionary = Dictionary<Int, TimerObject>()
     
     func createNewTask(duration: String, title: String){
@@ -50,21 +51,17 @@ class TimerQueueManager{
         futureTaskDictionary.removeAll(keepingCapacity: true)
     }
     
+    func resetValues(){
+        currentTimeRemaining = 0
+        timerIsPaused = false
+    }
+    
     func changeTimeRemaining(timeRemaining: Int){
         currentTimeRemaining = timeRemaining
     }
     
     func getTimeRemaining() -> Int{
         return currentTimeRemaining
-    }
-    
-    func isEmptyValues() -> Bool{
-        for(index,_) in futureTaskDictionary{
-            if(String(index) == ""){
-                return true
-            }
-        }
-        return false
     }
  
     // Recommended pattern for creating a singleton

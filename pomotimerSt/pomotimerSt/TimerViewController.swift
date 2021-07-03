@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import UserNotifications
 
 class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     //Text fields and button texts
@@ -21,19 +22,23 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     
     //set to 1 so that it loads the second item and skips the first
     var indexToLoad = 1
-    var isPaused = false
     var queueManagerClass = TimerQueueManager.sharedInstance
     var timer: Timer? = nil
+    var viewHasAlreadyLoaded = false
+    var seconds = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("num in task directory:")
-        print(queueManagerClass.futureTaskDictionary.count)
-        // Do any additional setup after loading the view.
         print("timerViewController")
+        print(viewHasAlreadyLoaded)
         timerName.stringValue = queueManagerClass.findFirstTimer().getTitle()
         tableView.reloadData()
         startFirstTimer()
+        //set the recentVC to this page (save what page you're on)
+        //access running instance of statusItemManager
+        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
+        //save what page the user is on
+        itemManager.setMostRecentVC(recentVC: "TimerPage")
     }
     
     //cancel button. works as back button and clears out the timer manager
@@ -42,7 +47,7 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
         //call the method that takes us back to the first page
-        itemManager.backToSetupPage()
+        itemManager.backToStartPage()
         //resets all timers
         queueManagerClass.resetTasks()
         //stop and reset the timer
@@ -53,18 +58,18 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     //pause or resume button
     @IBAction func togglePause(_ sender: NSButton) {
         print("togglePause")
-        if(isPaused){
+        if(queueManagerClass.timerIsPaused){
             //resumed the timer
             print("resumed")
             //changes button text
             pauseButton.title = "pause"
-            isPaused = false
+            queueManagerClass.timerIsPaused = false
         }else{
             //paused the timer
             print("paused")
             //changes button text
             pauseButton.title = "resume"
-            isPaused = true
+            queueManagerClass.timerIsPaused = true
         }
     }
     
@@ -78,14 +83,25 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     }
     
     func startFirstTimer(){
-        //how long the timer lasts
-        var seconds = queueManagerClass.findFirstTimer().getLengthSec()
+        //checks if this is the first time we're dealing with this timer
+        if(queueManagerClass.currentTimeRemaining == 0){
+            //sets the values that need to be set at the beginning
+            //sets how long the timer is
+            seconds = queueManagerClass.findFirstTimer().getLengthSec()
+        }else{
+            //loads where the timer was at when the user closed the window
+            self.seconds = self.queueManagerClass.currentTimeRemaining
+        }
         //start the countdown repeater
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ tempTimer in
-            if(!self.isPaused){
-                seconds -= 1
+            //saves how many seconds have passed in a different viewcontoller to be accessed in case the window is closed
+            self.queueManagerClass.currentTimeRemaining = self.seconds
+            if(!self.queueManagerClass.timerIsPaused){
+                self.seconds -= 1
             }
-            if(seconds == 0){
+            if(self.seconds == 0){
+                self.queueManagerClass.currentTimeRemaining = 0
+                self.sendNotification(notificationTitle: self.queueManagerClass.findFirstTimer().getTitle(), lastTimer: true)
                 self.stopTimer()
                 if(self.queueManagerClass.futureTaskDictionary.count == 1){
                     print("timers done")
@@ -93,18 +109,43 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
                     guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
                     //resets all timers
                     self.queueManagerClass.resetTasks()
+                    self.queueManagerClass.resetValues()
                     //call the method that takes us to the done page
                     itemManager.showDone()
                 }else{
+                    self.sendNotification(notificationTitle: self.queueManagerClass.findFirstTimer().getTitle(), lastTimer: false)
                     self.nextTimer()
                 }
             }
-            let hoursString = String(seconds / 3600)
-            let minutesString = String((seconds % 3600) / 60)
-            let secondsString = String((seconds % 3600) % 60)
-            self.queueManagerClass.changeTimeRemaining(timeRemaining: seconds)
+            //just in case the invaliadation failed, invalidate the timer.
+            if(self.seconds < 0){
+                self.timer?.invalidate()
+            }
+            //displays everything
+            let hoursString = String(self.seconds / 3600)
+            let minutesString = String((self.seconds % 3600) / 60)
+            let secondsString = String((self.seconds % 3600) % 60)
+            self.queueManagerClass.changeTimeRemaining(timeRemaining: self.seconds)
             self.timerText.stringValue = hoursString + ":" + minutesString + ":" + secondsString
         }
+    }
+    
+    func sendNotification(notificationTitle: String, lastTimer: Bool) {
+        print("sending notification")
+        let content = UNMutableNotificationContent()
+        
+        content.title = notificationTitle + " finished"
+        if(lastTimer){
+            content.body = "All done!"
+        }else{
+            content.body = "Time to work on " + (self.queueManagerClass.futureTaskDictionary[1]?.getTitle())!
+        }
+        content.sound = UNNotificationSound.default
+        content.badge = 1
+
+        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: nil)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
     func stopTimer(){
@@ -152,6 +193,10 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         // Update the view, if already loaded.
         }
     }
+    
+    // Recommended pattern for creating a singleton
+    // https://developer.apple.com/documentation/swift/cocoa_design_patterns/managing_a_shared_resource_using_a_singleton
+    static let sharedInstance = TimerViewController()
 
 
 }

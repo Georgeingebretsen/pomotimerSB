@@ -683,7 +683,7 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="dEq-6L-PMm" customClass="StatusItemManager" customModule="pomotimerSt" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="38" y="-224"/>
+            <point key="canvasLocation" x="38" y="-222"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">

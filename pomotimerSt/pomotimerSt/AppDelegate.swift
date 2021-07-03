@@ -6,14 +6,24 @@
 //
 
 import Cocoa
+import UserNotifications
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var statusItemManager: StatusItemManager!
+    let notificationCenter = UNUserNotificationCenter.current()
+    
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        notificationCenter.requestAuthorization(options: options) {
+            (didAllow, error) in
+            if !didAllow {
+                print("User has declined notifications")
+            }
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -53,8 +63,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func saveAction(_ sender: AnyObject?) {
         // Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
+        print("save")
         let context = persistentContainer.viewContext
-
+        
         if !context.commitEditing() {
             NSLog("\(NSStringFromClass(type(of: self))) unable to commit editing before saving")
         }

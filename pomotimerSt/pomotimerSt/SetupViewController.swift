@@ -23,6 +23,11 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         tableView.dataSource = self
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierSetupDeleteButton"), object: nil)
         queueManagerClass.createNewTask(duration: "", title: "")
+        //set the recentVC to this page (save what page you're on)
+        //access running instance of statusItemManager
+        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
+        //call the showSetup() method in that instance
+        itemManager.setMostRecentVC(recentVC: "SetupPage")
     }
     
     @objc func methodOfReceivedNotification(notification: Notification) {
@@ -46,8 +51,10 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     
     //"done" button
     @IBAction func GoToTimer(_ sender: NSButton) {
-        if(queueManagerClass.isEmptyValues()){
+        if(self.findBlankActivities().count != 0){
             //make a beep noise or figure out how to highlight the cell with the missing value
+            //figure out how to highlight red
+            
         }else{
             //instantiates the timers with the text values
             saveCells()
@@ -65,7 +72,7 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         reloadTable()
     }
     
-    func saveCells(){
+    func saveCells() {
         var i = 0
         let dicCount = queueManagerClass.futureTaskDictionary.count
         queueManagerClass.resetTasks()
@@ -76,6 +83,23 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
             let activity = view?.getActivity()
             queueManagerClass.createNewTask(duration: duration ?? "", title: activity ?? "")
         }
+    }
+    
+    func findBlankActivities() -> Dictionary<Int, Int>{
+        var i = 0
+        var index = 0
+        let dic = queueManagerClass.futureTaskDictionary
+        var blanksDic: [Int:Int] = [:]
+        while(i < dic.count){
+            let view = self.tableView.view(atColumn: 0, row: i, makeIfNecessary: false) as? CustomTableCell
+            i += 1
+            let activity = view?.getActivity()
+            if(activity == ""){
+                blanksDic[index] = i
+                index += 1
+            }
+        }
+        return blanksDic
     }
     
     //finds how many timers have been made and tells the table to make that many rows
@@ -92,9 +116,17 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
                 //sets the activity and duration strings to what was stored for this particular dictionary entry
                 let activity = task.getTitle()
                 let duration = String(task.getLengthSec())
-                //loads those strings into the lables on the cell
-                userCell.setActivity(activity: activity)
-                userCell.setDuration(durationInSeconds: duration)
+                if(activity == "0"){
+                    userCell.setActivity(activity: "")
+                }else{
+                    //loads those sstrings into the lables on the cell
+                    userCell.setActivity(activity: activity)
+                }
+                if(duration == "0"){
+                    userCell.setDuration(durationInSeconds: "")
+                }else{
+                    userCell.setDuration(durationInSeconds: duration)
+                }
                 //loads other variables on the cell
                 userCell.cellIdentifier = orderNum
             }

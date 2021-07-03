@@ -31,6 +31,11 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
         fillTextBoxes()
         timerName.stringValue = queueManagerClass.findFirstTimer().getTitle()
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotificationDeleteButton(notification:)), name: Notification.Name("NotificationIdentifierEditDeleteButton"), object: nil)
+        //set the recentVC to this page (save what page you're on)
+        //access running instance of statusItemManager
+        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
+        //call the showSetup() method in that instance
+        itemManager.setMostRecentVC(recentVC: "EditPage")
     }
 
     @objc func methodOfReceivedNotificationDeleteButton(notification: Notification) {
@@ -165,6 +170,7 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
         let totalDurationTop = String((hourValue * 60 * 60) + (minutesValue * 60) + secondsValue)
         let activityTop = timerName.stringValue
         queueManagerClass.createNewTask(duration: totalDurationTop, title: activityTop)
+        self.queueManagerClass.currentTimeRemaining = Int(totalDurationTop)!
         //save everything in the tableView
         print("dictionary count: " + String(dictionaryCount))
         var i = 0
