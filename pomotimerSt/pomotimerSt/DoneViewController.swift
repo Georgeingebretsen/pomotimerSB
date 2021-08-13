@@ -13,12 +13,13 @@ class DoneViewController: NSViewController {
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
         //call the method that takes us back to the first page
-        itemManager.backToStartPage()
+        itemManager.showSetup()
     }
 
     //gets executed right when the view is launched
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("doneViewController viewDidLoad")
         // Do any additional setup after loading the view.
         //set the recentVC to this page (save what page you're on)
         //access running instance of statusItemManager

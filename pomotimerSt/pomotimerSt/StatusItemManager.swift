@@ -32,7 +32,7 @@ class StatusItemManager: NSObject {
         guard let popover = popover, let button = statusItem?.button else { return }
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         if (mostRecentVC == "") {
-            guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "MenuPage")) as? ViewController else { return }
+            guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "SetupPage")) as? SetupViewController else { return }
             timerVC = vc
         }
         if (mostRecentVC == "SetupPage") {
@@ -88,20 +88,11 @@ class StatusItemManager: NSObject {
         popover.contentViewController = vc
     }
     
+    //takes you to the "done" page
     func showDone() {
         guard let popover = popover else { return }
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "DonePage")) as? DoneViewController else { return }
-        popover.contentViewController = vc
-    }
-    
-    //the back button to go back to the first page
-    func backToStartPage() {
-        print("back to start page")
-        guard let popover = popover else { return }
-        popover.contentViewController?.dismiss(nil)
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "MenuPage")) as? ViewController else { return }
         popover.contentViewController = vc
     }
     

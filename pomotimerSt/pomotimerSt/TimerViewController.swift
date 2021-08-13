@@ -29,30 +29,29 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("timerViewController")
-        print(viewHasAlreadyLoaded)
-        timerName.stringValue = queueManagerClass.findFirstTimer().getTitle()
-        tableView.reloadData()
-        startFirstTimer()
-        //set the recentVC to this page (save what page you're on)
+        print("timerViewController viewDidLoad")
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
         //save what page the user is on
         itemManager.setMostRecentVC(recentVC: "TimerPage")
+        timerName.stringValue = queueManagerClass.findFirstTimer().getTitle()
+        tableView.reloadData()
+        startFirstTimer()
     }
     
     //cancel button. works as back button and clears out the timer manager
     @IBAction func backToSetup(_ sender: NSButton) {
         print("backToSetup")
-        //access running instance of statusItemManager
-        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
-        //call the method that takes us back to the first page
-        itemManager.backToStartPage()
         //resets all timers
         queueManagerClass.resetTasks()
+        queueManagerClass.resetValues()
         //stop and reset the timer
         timer?.invalidate()
         timer = nil
+        //access running instance of statusItemManager
+        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
+        //call the method that takes us back to the first page
+        itemManager.showSetup()
     }
     
     //pause or resume button
@@ -104,15 +103,19 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
                 self.sendNotification(notificationTitle: self.queueManagerClass.findFirstTimer().getTitle(), lastTimer: true)
                 self.stopTimer()
                 if(self.queueManagerClass.futureTaskDictionary.count == 1){
+                    //code for when that was the last timer
                     print("timers done")
                     //access running instance of statusItemManager
                     guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
                     //resets all timers
                     self.queueManagerClass.resetTasks()
                     self.queueManagerClass.resetValues()
+                    //call the showSetup() method in that instance
+                    itemManager.setMostRecentVC(recentVC: "DonePage")
                     //call the method that takes us to the done page
                     itemManager.showDone()
                 }else{
+                    //code for when there are more timers left
                     self.sendNotification(notificationTitle: self.queueManagerClass.findFirstTimer().getTitle(), lastTimer: false)
                     self.nextTimer()
                 }

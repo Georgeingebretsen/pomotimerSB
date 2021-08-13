@@ -60,7 +60,7 @@ class CustomTableCell: NSTableCellView, NSTextFieldDelegate {
         }else{
             //if it is valid, set the mm to an int
             hhI = Int(hh)!
-            print("valid input")
+            hoursTextField.wantsLayer = false
         }
     }
     
@@ -84,7 +84,7 @@ class CustomTableCell: NSTableCellView, NSTextFieldDelegate {
             //correct
             //set the mm to an int
             mmI = Int(mm)!
-            print("valid input")
+            minutesTextField.wantsLayer = false
         }
     }
     
@@ -106,7 +106,7 @@ class CustomTableCell: NSTableCellView, NSTextFieldDelegate {
         }else{
             //if it is valid, set the mm to an int
             ssI = Int(ss)!
-            print("valid input")
+            secondsTextField.wantsLayer = false
         }
     }
     

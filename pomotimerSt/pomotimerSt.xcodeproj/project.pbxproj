@@ -11,7 +11,6 @@
 		F1448B17265189FC00544B3E /* CustomEditTimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1448B16265189FC00544B3E /* CustomEditTimerCell.swift */; };
 		F16FADDD2640C491009AA8E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F16FADDB2640C491009AA8E1 /* Main.storyboard */; };
 		F16FADE02640CAE6009AA8E1 /* SecondCustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16FADDF2640CAE6009AA8E1 /* SecondCustomTableCell.swift */; };
-		F190E06D2635E582009BA4A4 /* PreferancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190E06C2635E582009BA4A4 /* PreferancesViewController.swift */; };
 		F190E07126376D81009BA4A4 /* CustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F190E07026376D81009BA4A4 /* CustomTableCell.swift */; };
 		F19F99E326116E95004958BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F99E226116E95004958BD /* AppDelegate.swift */; };
 		F19F99E526116E95004958BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F99E426116E95004958BD /* ViewController.swift */; };
@@ -30,7 +29,6 @@
 		F1448B16265189FC00544B3E /* CustomEditTimerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEditTimerCell.swift; sourceTree = "<group>"; };
 		F16FADDC2640C491009AA8E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F16FADDF2640CAE6009AA8E1 /* SecondCustomTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCustomTableCell.swift; sourceTree = "<group>"; };
-		F190E06C2635E582009BA4A4 /* PreferancesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferancesViewController.swift; sourceTree = "<group>"; };
 		F190E07026376D81009BA4A4 /* CustomTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableCell.swift; sourceTree = "<group>"; };
 		F19F99DF26116E95004958BD /* pomotimerSt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pomotimerSt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19F99E226116E95004958BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				F19F99E426116E95004958BD /* ViewController.swift */,
-				F190E06C2635E582009BA4A4 /* PreferancesViewController.swift */,
 				F19F99FA26124009004958BD /* SetupViewController.swift */,
 				F19F9A042612C9D4004958BD /* TimerViewController.swift */,
 				F1448B142651854300544B3E /* EditTimerViewController.swift */,
@@ -171,7 +168,6 @@
 				F19F9A022612C65E004958BD /* TimerQueueManager.swift in Sources */,
 				F190E07126376D81009BA4A4 /* CustomTableCell.swift in Sources */,
 				F19F99F726116EF6004958BD /* StatusItemManager.swift in Sources */,
-				F190E06D2635E582009BA4A4 /* PreferancesViewController.swift in Sources */,
 				F1DF53A6262E475B0001F909 /* DoneViewController.swift in Sources */,
 				F19F99E526116E95004958BD /* ViewController.swift in Sources */,
 				F16FADE02640CAE6009AA8E1 /* SecondCustomTableCell.swift in Sources */,
@@ -320,6 +316,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = pomotimerSt/pomotimerSt.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = pomotimerSt/Info.plist;
@@ -339,6 +336,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = pomotimerSt/pomotimerSt.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = pomotimerSt/Info.plist;

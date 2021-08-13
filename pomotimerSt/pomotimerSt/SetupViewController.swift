@@ -46,7 +46,7 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
         //call the method that takes us back to the first page
-        itemManager.backToStartPage()
+        itemManager.showSetup()
     }
     
     //"done" button
@@ -54,7 +54,26 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         if(self.findBlankActivities().count != 0){
             //make a beep noise or figure out how to highlight the cell with the missing value
             //figure out how to highlight red
-            
+            let dicCount = queueManagerClass.futureTaskDictionary.count
+            var i = 0
+            while (i < dicCount){
+                let view = self.tableView.view(atColumn: 0, row: i, makeIfNecessary: false) as? CustomTableCell
+                let duration = view?.getDuration()
+                let activity = view?.getActivity()
+                if(duration == "0"){
+                    //highlight red the duration text boxes of the cell that was left blank
+                    //make a beep sound
+                    highlightRed(textbox: (view?.hoursTextField)!)
+                    highlightRed(textbox: (view?.minutesTextField)!)
+                    highlightRed(textbox: (view?.secondsTextField)!)
+                }
+                if(activity == ""){
+                    //highlight red the activity text box of the cell that was left blank
+                    //make a beep sound
+                    highlightRed(textbox: (view?.activityTextField)!)
+                }
+                i += 1
+            }
         }else{
             //instantiates the timers with the text values
             saveCells()
@@ -70,6 +89,13 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         saveCells()
         queueManagerClass.createNewTask(duration: "", title: "")
         reloadTable()
+    }
+    
+    func highlightRed(textbox: NSTextField) {
+        textbox.wantsLayer = true
+        textbox.layer?.borderColor = NSColor.red.cgColor
+        textbox.layer?.borderWidth = 1.0
+        textbox.layer?.cornerRadius = 0.0
     }
     
     func saveCells() {
