@@ -14,52 +14,60 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     //class that manages the timers
     var queueManagerClass = TimerQueueManager.sharedInstance
     var indexToLoad = 0
+    var randomIndex = Int.random(in: 1..<100000);
+    
+    func reloadTimers() {
+        tableView.reloadData()
+    }
     
     //gets executed right when the view is launched
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        print("random")
+        print(randomIndex);
+        
+        // Do any additional setup after loading the view
         tableView.delegate = self
         tableView.dataSource = self
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierSetupDeleteButton"), object: nil)
+        //resets the queueManager class
+        queueManagerClass.resetTasks()
+        queueManagerClass.resetValues()
+        let deleteButtonObserver = NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifierSetupDeleteButton"), object: nil)
+        //create the first task
         queueManagerClass.createNewTask(duration: "", title: "")
-        //set the recentVC to this page (save what page you're on)
-        //access running instance of statusItemManager
+//        print("initialize dictionary after load:")
+//        print(queueManagerClass.futureTaskDictionary)
+        //save what page the user is on
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
-        //call the showSetup() method in that instance
         itemManager.setMostRecentVC(recentVC: "SetupPage")
     }
     
+    //delete button method
     @objc func methodOfReceivedNotification(notification: Notification) {
+        print("random delete");
+        print(randomIndex);
+
         saveCells()
-        //get the number of the cell that we want to delete
+        //find the index of the cell that we want to delete
         let passedDictionary = notification.userInfo
         let numToDelete = passedDictionary!["cellIdentifier"]
-        //delete the entry in the dictionary with the given cell identifier
+        
+        //delete the entry in the dictionary at the given index
         queueManagerClass.removeTimer(cellToRemove: numToDelete as! Int)
         //refresh the table to show the new dictionary values
         reloadTable()
     }
     
-    //back button method
-    @IBAction func backToFirstPageButton(_ sender: NSButton) {
-        //access running instance of statusItemManager
-        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
-        //call the method that takes us back to the first page
-        itemManager.showSetup()
-    }
-    
     //"done" button
     @IBAction func GoToTimer(_ sender: NSButton) {
-        if(self.findBlankActivities().count != 0){
-            //make a beep noise or figure out how to highlight the cell with the missing value
-            //figure out how to highlight red
+        if(self.findInvalidActivities().count != 0){
             let dicCount = queueManagerClass.futureTaskDictionary.count
             var i = 0
             while (i < dicCount){
                 let view = self.tableView.view(atColumn: 0, row: i, makeIfNecessary: false) as? CustomTableCell
                 let duration = view?.getDuration()
-                let activity = view?.getActivity()
+                let activity = view?.getActivity().trimmingCharacters(in: .whitespacesAndNewlines)
                 if(duration == "0"){
                     //highlight red the duration text boxes of the cell that was left blank
                     //make a beep sound
@@ -67,14 +75,16 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
                     highlightRed(textbox: (view?.minutesTextField)!)
                     highlightRed(textbox: (view?.secondsTextField)!)
                 }
-                if(activity == ""){
-                    //highlight red the activity text box of the cell that was left blank
+                if(activity == "" || activity?.count ?? 0 > 35){
+                    //highlight red the activity text box of the cell that was left blank or had too much text
                     //make a beep sound
                     highlightRed(textbox: (view?.activityTextField)!)
                 }
                 i += 1
             }
         }else{
+            //remove the notification center observer
+            NotificationCenter.default.removeObserver(self)
             //instantiates the timers with the text values
             saveCells()
             //move to next screen
@@ -85,9 +95,13 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         }
     }
     
+    //"add new" button method
     @IBAction func addMore(_ sender: NSButton) {
         saveCells()
         queueManagerClass.createNewTask(duration: "", title: "")
+        let dicCount = queueManagerClass.futureTaskDictionary.count
+        print("amount after add = ")
+        print(dicCount)
         reloadTable()
     }
     
@@ -109,9 +123,10 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
             let activity = view?.getActivity()
             queueManagerClass.createNewTask(duration: duration ?? "", title: activity ?? "")
         }
+        let newDicCount = queueManagerClass.futureTaskDictionary.count
     }
     
-    func findBlankActivities() -> Dictionary<Int, Int>{
+    func findInvalidActivities() -> Dictionary<Int, Int>{
         var i = 0
         var index = 0
         let dic = queueManagerClass.futureTaskDictionary
@@ -119,8 +134,9 @@ class SetupViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         while(i < dic.count){
             let view = self.tableView.view(atColumn: 0, row: i, makeIfNecessary: false) as? CustomTableCell
             i += 1
-            let activity = view?.getActivity()
-            if(activity == ""){
+            let activity = view?.getActivity().trimmingCharacters(in: .whitespacesAndNewlines)
+            let duration = view?.getDuration()
+            if(activity == "" || activity?.count ?? 0 > 35 || duration == "0"){
                 blanksDic[index] = i
                 index += 1
             }

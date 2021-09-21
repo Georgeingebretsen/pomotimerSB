@@ -4,7 +4,6 @@
 //
 //  Created by George Ingebretsen on 3/28/21.
 //
-
 import Cocoa
 
 class StatusItemManager: NSObject {
@@ -51,10 +50,6 @@ class StatusItemManager: NSObject {
             guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "DonePage")) as? DoneViewController else { return }
             timerVC = vc
         }
-        if (mostRecentVC == "PreferancesPage") {
-            guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PreferancesPage")) as? PreferancesViewController else { return }
-            timerVC = vc
-        }
         //2) assignes popover as the view controller for the popover
         popover.contentViewController = timerVC
         //3) display the popover
@@ -70,13 +65,6 @@ class StatusItemManager: NSObject {
         guard let popover = popover else { return }
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "SetupPage")) as? SetupViewController else { return }
-        popover.contentViewController = vc
-    }
-    
-    func showPreferances() {
-        guard let popover = popover else { return }
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PreferancesPage")) as? PreferancesViewController else { return }
         popover.contentViewController = vc
     }
     

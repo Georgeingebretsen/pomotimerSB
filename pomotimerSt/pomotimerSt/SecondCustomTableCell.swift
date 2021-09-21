@@ -22,9 +22,19 @@ class SecondCustomTableCell: NSTableCellView {
     }
     
     func setDuration(duration: String){
-        let hourValue = Int(duration)! / 3600
-        let minutesValue = (Int(duration)! % 3600) / 60
-        let secondsValue = String((Int(duration)! % 3600) % 60)
-        durationLabel.stringValue = String(hourValue) + ":" + String(minutesValue) + ":" + String(secondsValue)
+        //displays everything
+        var hoursString = String(Int(duration)! / 3600) + ":"
+        if(hoursString == "0:"){
+            hoursString = ""
+        }
+        var minutesString = String((Int(duration)! % 3600) / 60) + ":"
+        if(minutesString == "0:"){
+            minutesString = "00:"
+        }
+        var secondsString = String((Int(duration)! % 3600) % 60)
+        if(secondsString == "0"){
+            secondsString = "00"
+        }
+        durationLabel.stringValue = hoursString + minutesString + secondsString
     }
 }

@@ -19,49 +19,86 @@ class TimerQueueManager{
         futureTaskDictionary[futureTaskDictionary.count] = TimerObject(lengthSec: durationInt, title: title)
     }
     
+    func removeTimer(cellToRemove: Int) {
+
+        // keep a reference to the current dictionary
+        let prevTasks = futureTaskDictionary;
+        let prevTaskCount = prevTasks.count;
+
+        // create a new dictionary (this will become the defacto data store with the item removed)
+        var newTasks = Dictionary<Int, TimerObject>()
+                
+        // iterate through the prevTasks and all items except the one to be removed
+        var prevTaskIndex = 0
+        var newTaskIndex = 0
+        while (prevTaskIndex < prevTaskCount) {
+            
+            if (prevTaskIndex != cellToRemove) {
+                let task = prevTasks[prevTaskIndex];
+                newTasks[newTaskIndex] = TimerObject(lengthSec: task?.getLengthSec() ??  0, title: task?.getTitle() ?? "")
+                newTaskIndex += 1
+            }
+            
+            prevTaskIndex += 1
+        }
+        
+
+        
+        // update reference to use new dictionary
+        futureTaskDictionary = newTasks;
+    }
+//
+//    func removeTimer(cellToRemove: Int){
+//        print("before remove timer:")
+//        print(futureTaskDictionary)
+//
+//        var prevData = futureTaskDictionary;
+//        prevData[cellToRemove] = nil
+//
+//
+//        //change all of the cells orderNum tag to represent their new position
+//        var newTaskDictionary = Dictionary<Int, TimerObject>()
+//
+//
+//        let prevDataCount = prevData.count
+//
+//        var prevDataIndex = 0
+//        var newTaskIndex = 0
+//
+//        while(prevDataIndex <= prevDataCount){
+//
+//
+//            if(prevData[prevDataIndex] != nil){
+//                newTaskDictionary[newTaskIndex] = prevData[prevDataIndex]
+//                newTaskIndex += 1
+//            }
+//            prevDataIndex += 1
+//        }
+//        futureTaskDictionary = newTaskDictionary
+//
+//        print("after remove timer:")
+//        print(futureTaskDictionary)
+//    }
+    
     func findFirstTimer() -> TimerObject{
         return futureTaskDictionary[0]!
     }
     
-    //strategy newDic
-    func removeTimer(cellToRemove: Int){
-        print("before remove timer:")
-        print(futureTaskDictionary)
-            
-        futureTaskDictionary[cellToRemove] = nil
-        //change all of the cells orderNum tag to represent their new position
-        var newTaskDictionary = Dictionary<Int, TimerObject>()
-        let dicCount = futureTaskDictionary.count
-        var futureDicIndex = 0
-        var newTaskIndex = 0
-        while(futureDicIndex <= dicCount){
-            if(futureTaskDictionary[futureDicIndex] != nil){
-                newTaskDictionary[newTaskIndex] = futureTaskDictionary[futureDicIndex]
-                newTaskIndex += 1
-            }
-            futureDicIndex += 1
-        }
-        futureTaskDictionary = newTaskDictionary
-        
-        print("after remove timer:")
-        print(futureTaskDictionary)
-    }
-    
-    func resetTasks(){
-        futureTaskDictionary.removeAll(keepingCapacity: true)
-    }
-    
-    func resetValues(){
-        currentTimeRemaining = 0
-        timerIsPaused = false
+    func getTimeRemaining() -> Int{
+        return currentTimeRemaining
     }
     
     func changeTimeRemaining(timeRemaining: Int){
         currentTimeRemaining = timeRemaining
     }
     
-    func getTimeRemaining() -> Int{
-        return currentTimeRemaining
+    func resetTasks(){
+        futureTaskDictionary.removeAll(keepingCapacity: false)
+    }
+    
+    func resetValues(){
+        currentTimeRemaining = 0
+        timerIsPaused = false
     }
  
     // Recommended pattern for creating a singleton

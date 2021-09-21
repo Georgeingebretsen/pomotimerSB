@@ -26,7 +26,7 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(queueManagerClass.futureTaskDictionary.count)
+        //print(queueManagerClass.futureTaskDictionary.count)
         // Do any additional setup after loading the view.
         fillTextBoxes()
         timerName.stringValue = queueManagerClass.findFirstTimer().getTitle()
@@ -52,11 +52,44 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
     @IBAction func backButton(_ sender: NSButton) {
         //save all of the cells that are currently displayed
         saveCells()
+        
+        
+    /*
+        //check to make sure no activity fields exceed the word limit
+        let dicCount = queueManagerClass.futureTaskDictionary.count
+        var i = 0
+        while (i < dicCount){
+            let view = self.tableView.view(atColumn: 0, row: i, makeIfNecessary: false) as? CustomTableCell
+            let duration = view?.getDuration()
+            let activity = view?.getActivity().trimmingCharacters(in: .whitespacesAndNewlines)
+            if(duration == "0"){
+                //highlight red the duration text boxes of the cell that was left blank
+                //make a beep sound
+                highlightRed(textbox: (view?.hoursTextField)!)
+                highlightRed(textbox: (view?.minutesTextField)!)
+                highlightRed(textbox: (view?.secondsTextField)!)
+            }
+            if(activity == "" || activity?.count ?? 0 > 35){
+                //highlight red the activity text box of the cell that was left blank or had too much text
+                //make a beep sound
+                highlightRed(textbox: (view?.activityTextField)!)
+            }
+            i += 1
+        }
+ */
+        
         //take you back to the timer page
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
         //call the method that takes us back to the first page
         itemManager.showTimer()
+    }
+    
+    func highlightRed(textbox: NSTextField) {
+        textbox.wantsLayer = true
+        textbox.layer?.borderColor = NSColor.red.cgColor
+        textbox.layer?.borderWidth = 1.0
+        textbox.layer?.cornerRadius = 0.0
     }
     
     @IBAction func newCell(_ sender: NSButton) {
@@ -92,7 +125,7 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
             return
         }
         // checks if the min are valid
-        if Int(currentInput) == nil || Int(currentInput)! > 59  {
+        if Int(currentInput) == nil || Int(currentInput) ?? 60 > 59  {
             minutesTextBox.stringValue = ""    // Clear it
             // Could play a beep
             return
@@ -153,7 +186,7 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
     }
 
     func reloadTable(){
-        print("reloading")
+        //print("reloading")
         indexToLoad = 1
         tableView.reloadData()
     }
@@ -165,14 +198,14 @@ class EditTimerViewController: NSViewController, NSTableViewDelegate, NSTableVie
         queueManagerClass.resetTasks()
         //save the top timer
         let hourValue = Int(hoursTextBox.stringValue)!
-        let minutesValue = Int(hoursTextBox.stringValue)!
+        let minutesValue = Int(minutesTextBox.stringValue)!
         let secondsValue = Int(secondsTextBox.stringValue)!
         let totalDurationTop = String((hourValue * 60 * 60) + (minutesValue * 60) + secondsValue)
         let activityTop = timerName.stringValue
         queueManagerClass.createNewTask(duration: totalDurationTop, title: activityTop)
         self.queueManagerClass.currentTimeRemaining = Int(totalDurationTop)!
         //save everything in the tableView
-        print("dictionary count: " + String(dictionaryCount))
+        //print("dictionary count: " + String(dictionaryCount))
         var i = 0
         while(i < dictionaryCount - 1){
             let view = self.tableView.view(atColumn: 0, row: i, makeIfNecessary: false) as? CustomEditTimerCell

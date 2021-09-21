@@ -29,7 +29,7 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("timerViewController viewDidLoad")
+        //print("timerViewController viewDidLoad")
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
         //save what page the user is on
@@ -41,13 +41,13 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     
     //cancel button. works as back button and clears out the timer manager
     @IBAction func backToSetup(_ sender: NSButton) {
-        print("backToSetup")
-        //resets all timers
-        queueManagerClass.resetTasks()
-        queueManagerClass.resetValues()
-        //stop and reset the timer
+        //print("backToSetup")
+        //stop and reset the timer, kill the notification reciever
         timer?.invalidate()
         timer = nil
+        //resets the queueManager class
+        queueManagerClass.resetTasks()
+        queueManagerClass.resetValues()
         //access running instance of statusItemManager
         guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
         //call the method that takes us back to the first page
@@ -104,7 +104,7 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
                 self.stopTimer()
                 if(self.queueManagerClass.futureTaskDictionary.count == 1){
                     //code for when that was the last timer
-                    print("timers done")
+                    //print("timers done")
                     //access running instance of statusItemManager
                     guard let appDelegate = NSApplication.shared.delegate as? AppDelegate, let itemManager = appDelegate.statusItemManager else { return }
                     //resets all timers
@@ -125,16 +125,25 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
                 self.timer?.invalidate()
             }
             //displays everything
-            let hoursString = String(self.seconds / 3600)
-            let minutesString = String((self.seconds % 3600) / 60)
-            let secondsString = String((self.seconds % 3600) % 60)
+            var hoursString = String(self.seconds / 3600) + ":"
+            if(hoursString == "0:"){
+                hoursString = ""
+            }
+            var minutesString = String((self.seconds % 3600) / 60) + ":"
+            if(minutesString == "0:"){
+                minutesString = "00:"
+            }
+            var secondsString = String((self.seconds % 3600) % 60)
+            if(secondsString == "0"){
+                secondsString = "00"
+            }
             self.queueManagerClass.changeTimeRemaining(timeRemaining: self.seconds)
-            self.timerText.stringValue = hoursString + ":" + minutesString + ":" + secondsString
+            self.timerText.stringValue = hoursString + minutesString + secondsString
         }
     }
     
     func sendNotification(notificationTitle: String, lastTimer: Bool) {
-        print("sending notification")
+        //print("sending notification")
         let content = UNMutableNotificationContent()
         
         content.title = notificationTitle + " finished"
@@ -167,7 +176,7 @@ class TimerViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     
     //code for loading the custom cells
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        print("building cell")
+        //print("building cell")
         guard let userCell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "secondUserCell"), owner: self) as? SecondCustomTableCell else { return nil }
         //goes through each entry in the directory. not nessisarily sorted by the correct order.
         for (orderNum, task) in queueManagerClass.futureTaskDictionary {

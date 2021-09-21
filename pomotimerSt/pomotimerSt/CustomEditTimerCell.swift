@@ -156,14 +156,14 @@ class CustomEditTimerCell: NSTableCellView, NSTextFieldDelegate {
     func getDuration() -> String{
         makeSureValuesInstantiate()
         let totalMin = (hhI * 60 * 60) + (mmI * 60) + ssI
-        print("total sec:" + String(totalMin))
+        //print("total sec:" + String(totalMin))
         return String(totalMin)
     }
     
     public func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         if (commandSelector == #selector(NSResponder.insertNewline(_:))) {
             // Do something against ENTER key
-            print("enter")
+            //print("enter")
             textFieldShouldReturn(findFirstResponder())
             return true
         }

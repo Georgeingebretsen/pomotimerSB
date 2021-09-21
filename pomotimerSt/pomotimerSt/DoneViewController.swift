@@ -19,7 +19,7 @@ class DoneViewController: NSViewController {
     //gets executed right when the view is launched
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("doneViewController viewDidLoad")
+        //print("doneViewController viewDidLoad")
         // Do any additional setup after loading the view.
         //set the recentVC to this page (save what page you're on)
         //access running instance of statusItemManager
